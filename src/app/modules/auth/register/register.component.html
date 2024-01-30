@@ -1,5 +1,7 @@
 <div>
-    <h1></h1>
+    <h3>Crear cuenta</h3>    
+    <hr>
+    <br>
     <form [formGroup]="formRegister" (ngSubmit)="register()">
       <label for="email"> Correo electrónico </label>
       <input type="text" name="email" formControlName="correo_electronico" autocomplete="off" placeholder="micorreo@gmail.com"/>
@@ -14,4 +16,7 @@
         Registrarme
       </button>
     </form>
+    <hr>
+    <br>
+    <label>¿Ya tienes cuenta?, inicia sesión <a [routerLink]="['/auth/login']"> aquí</a></label>
   </div>

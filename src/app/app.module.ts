@@ -7,11 +7,13 @@ import { AuthModule } from './modules/auth/auth.module';
 import { SpinnerComponent } from './modules/shared/spinner/spinner.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoaderInterceptor } from './core/interceptors/loader.interceptor';
+import { AlertComponent } from './modules/shared/alert/alert.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,

@@ -12,9 +12,10 @@
     padding: var(--double-separation);
   }
   
-  h1 {
+  h3 {
     margin-bottom: var(--base-separation);
     color: #5005c0;
+    text-align: center;
   }
   
   form {

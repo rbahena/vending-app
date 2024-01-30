@@ -4,6 +4,7 @@ import { loginInterface } from './models/login.interface';
 import { environment } from 'src/environments/environment.env';
 import { JsonPipe } from '@angular/common';
 import { registerInterface } from './models/register.interface';
+import { AlertService } from '../shared/alert/alert.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,11 +13,13 @@ export class AuthService {
   urlApiBase = environment.urlApi;
   apiController: String = 'auth';
 
-  constructor(private httpclient: HttpClient) {}
+  constructor(private httpclient: HttpClient, private alertService: AlertService) {}
   
+
   login(credentials: loginInterface) {
     const apiMethod = 'login';
     const urlApi = this.urlApiBase + this.apiController + "/" + apiMethod;
+    this.alertService.showAlert("Inicio de sesión exitoso");
     this.httpclient.post(urlApi, credentials).subscribe({
       next(response) {
         console.log(response);
@@ -44,5 +47,9 @@ export class AuthService {
         console.log('Completed');
       },
     });
+  }
+
+  callAlert(){
+    
   }
 }
