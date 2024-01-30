@@ -5,6 +5,6 @@ import { Component } from '@angular/core';
   templateUrl: './back-office-home.component.html',
   styleUrls: ['./back-office-home.component.css']
 })
-export class BackOfficeHomeComponent {
+export class BackOfficeDashboardComponent {
 
 }

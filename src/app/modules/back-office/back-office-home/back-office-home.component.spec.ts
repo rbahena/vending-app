@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BackOfficeHomeComponent } from './back-office-home.component';
+import { BackOfficeDashboardComponent } from './back-office-home.component';
 
-describe('BackOfficeHomeComponent', () => {
-  let component: BackOfficeHomeComponent;
-  let fixture: ComponentFixture<BackOfficeHomeComponent>;
+describe('BackOfficeDashboardComponent', () => {
+  let component: BackOfficeDashboardComponent;
+  let fixture: ComponentFixture<BackOfficeDashboardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BackOfficeHomeComponent ]
+      declarations: [ BackOfficeDashboardComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(BackOfficeHomeComponent);
+    fixture = TestBed.createComponent(BackOfficeDashboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

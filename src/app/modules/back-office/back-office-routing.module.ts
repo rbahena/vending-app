@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { BackOfficeHomeComponent } from './back-office-home/back-office-home.component';
-import { HomeComponent } from './home/home.component';
+import { BackOfficeDashboardComponent } from './back-office-home/back-office-home.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   {
     path:'',
-    component: BackOfficeHomeComponent,
+    component: BackOfficeDashboardComponent,
     children: [
       {
         path:'',
-        component: HomeComponent
+        component: DashboardComponent
       }
     ]
   }
