@@ -13,7 +13,7 @@ export class RegisterComponent {
 
   formRegister = new FormGroup({
     correo_electronico: new FormControl('', {
-      validators: [Validators.required],
+      validators: [Validators.required, Validators.email],
       nonNullable: true,
     }),
     contrasena: new FormControl('', {

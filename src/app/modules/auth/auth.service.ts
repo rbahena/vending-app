@@ -17,16 +17,32 @@ export class AuthService {
   login(credentials: loginInterface) {
     const apiMethod = 'login';
     const urlApi = this.urlApiBase + this.apiController + "/" + apiMethod;
-    this.httpclient.post(urlApi, credentials).subscribe((data) => {
-      console.log(data);
+    this.httpclient.post(urlApi, credentials).subscribe({
+      next(response) {
+        console.log(response);
+      },
+      error(error) {
+        console.log(error);
+      },
+      complete() {
+        console.log('Completed');
+      },
     });
   }
 
   register(dataUser: registerInterface) {
     const apiMethod = 'register';
     const urlApi = this.urlApiBase + this.apiController + "/" + apiMethod;
-    this.httpclient.post(urlApi, dataUser).subscribe((data) => {
-      console.log(data);
+    this.httpclient.post(urlApi, dataUser).subscribe({
+      next(response) {
+        console.log(response);
+      },
+      error(error) {
+        console.log(error);
+      },
+      complete() {
+        console.log('Completed');
+      },
     });
   }
 }
