@@ -10,20 +10,20 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent implements OnInit {
   constructor(private authService: AuthService) {}
-  ngOnInit(): void {
-    this.initForm();
-  }
+  ngOnInit(): void {}
 
-  formLogin!: FormGroup;
+  formLogin = new FormGroup({
+    correo_electronico: new FormControl('', {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
+    contrasena: new FormControl('', {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
+  });
 
   login() {
-    this.authService.login(this.formLogin.value);
-  }
-
-  initForm(): void {
-    this.formLogin = new FormGroup({
-      correo_electronico: new FormControl(''),
-      contrasena: new FormControl(''),
-    });
+    this.authService.login(this.formLogin.value as loginInterface);
   }
 }
