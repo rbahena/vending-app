@@ -1,5 +1,7 @@
   <div>
     <h1>Ingresar al sistema</h1>
+    <hr>
+    <br>
     <form [formGroup]="formLogin" (ngSubmit)="login()">
       <label for="email"> Correo electrónico </label>
       <input type="text" name="email" formControlName="correo_electronico" autocomplete="off" placeholder="micorreo@gmail.com"/>
