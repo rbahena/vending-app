@@ -2,11 +2,14 @@
     <h1>Ingresar al sistema</h1>
     <form [formGroup]="formLogin" (ngSubmit)="login()">
       <label for="email"> Correo electrónico </label>
-      <input type="text" name="email" formControlName="correo_electronico" autocomplete="off"/>
+      <input type="text" name="email" formControlName="correo_electronico" autocomplete="off" placeholder="micorreo@gmail.com"/>
       <label for="password">Contraseña </label>
-      <input type="password" name="password" formControlName="contrasena" />
+      <input type="password" name="password" formControlName="contrasena" placeholder="*********"/>
       <button type="submit">
         Iniciar Sesión
       </button>
     </form>
+    <hr>
+    <br>
+    <label>¿Aún no estas registrado?, crea tu cuenta <a [routerLink]="['/auth/register']"> aqui</a></label>
   </div>

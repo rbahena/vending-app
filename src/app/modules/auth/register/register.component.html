@@ -1,1 +1,17 @@
-<p>register works!</p>
+<div>
+    <h1></h1>
+    <form [formGroup]="formRegister" (ngSubmit)="register()">
+      <label for="email"> Correo electrónico </label>
+      <input type="text" name="email" formControlName="correo_electronico" autocomplete="off" placeholder="micorreo@gmail.com"/>
+      
+      <label for="password">Contraseña </label>
+      <input type="password" name="password" formControlName="contrasena" placeholder="********"/>
+
+      <label for="telefono">Telefono </label>
+      <input type="number" name="telefono" formControlName="telefono" placeholder="5512659845"/>
+
+      <button type="submit">
+        Registrarme
+      </button>
+    </form>
+  </div>
