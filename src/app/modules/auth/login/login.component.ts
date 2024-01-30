@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { loginInterface } from '../models/login.interface';
 import { AuthService } from '../auth.service';
+import { EMPTY, Subject, catchError, finalize } from 'rxjs';
+import { HttpErrorResponse, HttpRequest, HttpResponse } from '@angular/common/http';
+import { AlertService } from '../../shared/alert/alert.service';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +12,8 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private alertService: AlertService) {}
+  private unsubscribe$ = new Subject<void>();
   ngOnInit(): void {}
 
   formLogin = new FormGroup({
@@ -24,6 +28,18 @@ export class LoginComponent implements OnInit {
   });
 
   login() {
-    this.authService.login(this.formLogin.value as loginInterface);
+    this.authService.login(this.formLogin.value as loginInterface).pipe(
+      finalize(()=> this.alertService.showAlert("¡Inicio de sesión exitoso!")),
+      catchError((error:HttpErrorResponse) => {
+        if (error.status === 401) {
+          this.alertService.showAlert("No tienes permisos para acceder a esta página.");
+          return EMPTY;
+        }
+        this.alertService.showAlert("Ocurrio un error al inciar sesión");
+        throw error;
+      })
+    ).subscribe();
   }
+
+  ngOnDestroy(): void {}
 }
