@@ -3,13 +3,21 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path:'auth',
-    loadChildren:()=> import('./modules/auth/auth.module').then(m=> m.AuthModule)
+    path: 'auth',
+    loadChildren: () =>
+      import('./modules/auth/auth.module').then((m) => m.AuthModule),
   },
   {
-    path:'**',
-    redirectTo:'auth/login'
-  }
+    path: 'login',
+    redirectTo: 'auth/login',
+  },
+  {
+    path: 'dashboard',
+    loadChildren: () =>
+      import('./modules/back-office/back-office.module').then(
+        (module) => module.BackOfficeModule
+      ),
+  },
 ];
 
 @NgModule({

@@ -4,6 +4,7 @@ import { loginInterface } from './models/login.interface';
 import { environment } from 'src/environments/environment.env';
 import { registerInterface } from './models/register.interface';
 import { tap } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ export class AuthService {
   urlApiBase = environment.urlApi;
   apiController: String = 'auth';
 
-  constructor(private httpclient: HttpClient) {}
+  constructor(private httpclient: HttpClient, private router: Router) {}
   
 
   login(credentials: loginInterface) {
@@ -20,7 +21,10 @@ export class AuthService {
     const urlApi = this.urlApiBase + this.apiController + "/" + apiMethod;
     return this.httpclient
       .post(urlApi, credentials)
-      .pipe(tap((res) => console.log(res)));
+      .pipe(
+        tap((res) => console.log(res)),
+        tap(() => this.redirectToDashboard())
+        );
   }
 
   register(dataUser: registerInterface) {
@@ -37,5 +41,9 @@ export class AuthService {
         console.log('Completed');
       },
     });
+  }
+
+  private redirectToDashboard(): void {
+    this.router.navigateByUrl('/dashboard');
   }
 }
