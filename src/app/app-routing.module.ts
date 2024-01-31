@@ -8,16 +8,12 @@ const routes: Routes = [
       import('./modules/auth/auth.module').then((m) => m.AuthModule),
   },
   {
-    path: 'login',
-    redirectTo: 'auth/login',
-  },
-  {
-    path: 'dashboard',
+    path: '',
     loadChildren: () =>
       import('./modules/back-office/back-office.module').then(
         (module) => module.BackOfficeModule
       ),
-  },
+  }, 
 ];
 
 @NgModule({
