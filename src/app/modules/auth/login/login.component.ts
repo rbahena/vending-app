@@ -28,17 +28,26 @@ export class LoginComponent implements OnInit {
   });
 
   login() {
-    this.authService.login(this.formLogin.value as loginInterface).pipe(
-      finalize(()=> this.alertService.showAlert("¡Inicio de sesión exitoso!")),
-      catchError((error:HttpErrorResponse) => {
-        if (error.status === 401) {
-          this.alertService.showAlert("No tienes permisos para acceder a esta página.");
-          return EMPTY;
-        }
-        this.alertService.showAlert("Ocurrio un error al inciar sesión");
-        throw error;
-      })
-    ).subscribe();
+    this.authService
+      .login(this.formLogin.value as loginInterface)
+      .pipe(
+        finalize(() => {
+          console.log('Finalize');
+        }),
+        catchError((error: HttpErrorResponse) => {
+          console.log('Catch error');
+          if (error.status === 401) {
+            this.alertService.showAlert(
+              'No tienes permisos para acceder a esta página.'
+            );
+            return EMPTY;
+          }
+          this.alertService.showAlert('Ocurrio un error al inciar sesión');
+          throw error;
+        }),
+      )
+      .subscribe();
+      this.alertService.showAlert('Inicio de sesión exitoso.');
   }
 
   ngOnDestroy(): void {}

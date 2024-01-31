@@ -46,4 +46,10 @@ export class AuthService {
   private redirectToDashboard(): void {
     this.router.navigateByUrl('/dashboard');
   }
+
+  logout(): void {
+    //this.removeUserFromLocalStorage();
+    //this.user.next(null);
+    this.router.navigateByUrl('auth/login');
+  }
 }
