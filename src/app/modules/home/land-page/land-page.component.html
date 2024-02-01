@@ -1,0 +1,60 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Bivending</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#section1">Precios</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/auth/register']">Registrarse</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/auth/login']">Iniciar sesión</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Contenido del componente Angular (puedes ajustar el selector según el nombre de tu componente) -->
+  <div class="container" id="section1">
+    <div class="row">
+      <div class="col-md-6">
+        <h1 class="display-4">Bienvenido a nuestra Página</h1>
+        <p class="lead">Descubre lo que tenemos para ofrecerte en la primera sección.</p>
+        <a class="btn btn-primary btn-lg" href="#section2">Saber más</a>
+      </div>
+      <div class="col-md-6">
+        <!-- Puedes agregar imágenes, videos u otros elementos aquí -->
+        <img src="https://storage.googleapis.com/website-production/uploads/2023/08/what-is-a-landing-page-770x384.webp" alt="Imagen 1" class="img-fluid">
+      </div>
+    </div>
+  </div>
+
+  <div class="container bg-light" id="section2">
+    <div class="row">
+      <div class="col-md-6">
+        <!-- Puedes agregar imágenes, videos u otros elementos aquí -->
+        <img src="https://sp-ao.shortpixel.ai/client/to_webp,q_lossless,ret_img/https://unbounce.com/photos/1.5_CompareLeadGen_Click.webp" alt="Imagen 2" class="img-fluid">
+      </div>
+      <div class="col-md-6">
+        <h1 class="display-4">Explora Nuestra Experiencia</h1>
+        <p class="lead">Descubre lo que hemos preparado para ti en la segunda sección.</p>
+        <a class="btn btn-primary btn-lg" href="#section3">Únete a nosotros</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" id="section3">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <h1 class="display-4">Únete a Nuestra Comunidad</h1>
+        <p class="lead">Te invitamos a formar parte de nuestra comunidad en la tercera sección.</p>
+        <a class="btn btn-primary btn-lg" href="#contact">Contáctanos</a>
+      </div>
+    </div>
+  </div>
