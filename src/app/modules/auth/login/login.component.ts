@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
             );
             return EMPTY;
           }
-          this.alertService.showAlert(error.message, "Error");
+          this.alertService.showAlert(error.error.message, "Error");
           throw error;
         }),
       )
