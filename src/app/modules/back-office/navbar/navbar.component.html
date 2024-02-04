@@ -14,8 +14,13 @@
           </li>
         </ul>
         <form class="d-flex" role="search">
+          <app-user-detail></app-user-detail>
           <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
-          <i (click)="logout()" class="fa-solid fa-right-from-bracket" style="cursor: pointer;" style="color: white;"></i>
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" (click)="logout()" style="color: white; cursor: pointer;">Cerrar Sesión</a>
+            </li>
+          </ul>
         </form>
       </div>
     </div>
