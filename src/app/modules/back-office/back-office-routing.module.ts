@@ -10,13 +10,17 @@ const routes: Routes = [
     component: BackOfficeDashboardComponent,
     children: [
       {
-        path:'dashboard',
+        path:'welcome',
         component: DashboardComponent
       },
       {
         path:'products',
         loadChildren:()=> import('./products/products.module').then((modules) => modules.ProductsModule)
-      }
+      },
+      {
+        path:'',
+        component:DashboardComponent
+      },
     ]
   }
 ]
