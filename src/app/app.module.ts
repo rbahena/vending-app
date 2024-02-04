@@ -9,13 +9,15 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoaderInterceptor } from './core/interceptors/loader.interceptor';
 import { AlertComponent } from './modules/shared/alert/alert.component';
 import { LandPageComponent } from './modules/home/land-page/land-page.component';
+import { NavbarComponent } from './modules/home/navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SpinnerComponent,
     AlertComponent,
-    LandPageComponent
+    LandPageComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
