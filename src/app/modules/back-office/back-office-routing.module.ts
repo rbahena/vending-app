@@ -10,7 +10,7 @@ const routes: Routes = [
     component: BackOfficeDashboardComponent,
     children: [
       {
-        path:'welcome',
+        path:'dashboard',
         component: DashboardComponent
       },
       {
