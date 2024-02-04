@@ -30,17 +30,9 @@ export class AuthService {
   register(dataUser: registerInterface) {
     const apiMethod = 'register';
     const urlApi = this.urlApiBase + this.apiController + "/" + apiMethod;
-    this.httpclient.post(urlApi, dataUser).subscribe({
-      next(response) {
-        console.log(response);
-      },
-      error(error) {
-        console.log(error);
-      },
-      complete() {
-        console.log('Completed');
-      },
-    });
+    return this.httpclient.post(urlApi, dataUser).pipe(
+      tap((res) => console.log(res)),
+      tap(() => this.redirectToDashboard()));
   }
 
   private redirectToDashboard(): void {

@@ -38,11 +38,11 @@ export class LoginComponent implements OnInit {
           console.log('Catch error');
           if (error.status === 401) {
             this.alertService.showAlert(
-              'No tienes permisos para acceder a esta página.'
+              'No tienes permisos para acceder a esta página.', "Error"
             );
             return EMPTY;
           }
-          this.alertService.showAlert('Ocurrio un error al inciar sesión');
+          this.alertService.showAlert(error.message, "Error");
           throw error;
         }),
       )

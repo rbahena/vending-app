@@ -1,1 +1,4 @@
-<div class="alert alert-primary custom-alert" role="alert" *ngIf="showAlertComponent"> {{message}} </div>
+<div class="alert alert-success custom-alert" role="alert" *ngIf="showAlertComponent && infoAlert; else dangerAlert"> {{message}} </div>
+<ng-template #dangerAlert>
+<div class="alert alert-danger custom-alert" role="alert" *ngIf="showAlertComponent"> {{message}} </div>
+</ng-template>

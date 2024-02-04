@@ -10,7 +10,7 @@ export class AlertService {
 
   constructor() { }
 
-  showAlert(message: String, time:number = 3000){
-    this.alertSource.next({message, time});
+  showAlert(message: String, type:String = 'Info', time:number = 3000){
+    this.alertSource.next({message, type, time});
   }
 }
