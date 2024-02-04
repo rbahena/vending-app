@@ -18,7 +18,16 @@
     width: 100vw;
     place-items: start center;
   } */
-
+  :root {
+    --default-font-family: "Poppins", sans-serif;
+    --body-bg-color: #f5f5f5;
+    --default-text-color: #333;
+    --base-separation: 1rem;
+    --half-separation: calc(var(--base-separation) / 2);
+    --double-separation: calc(var(--base-separation) * 2);
+    --primary-color: #5e00ea;
+    --primary-color-high: #7d29fa;
+  }
 
   body {
     padding-top: 56px;
@@ -30,12 +39,10 @@
     }
   }
 
-  /* Añade estilos específicos para cada sección */
   #section1, #section2, #section3 {
     padding: 80px 0;
   }
 
-  /* Añade estilos para los botones */
   .btn-primary {
     background-color: #007bff;
     border-color: #007bff;
