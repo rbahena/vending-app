@@ -10,6 +10,8 @@ export class NavbarComponent {
 
   constructor(private authService: AuthService){}
 
+  currentUser$ = this.authService.user$;
+
   logout():void {
     this.authService.logout();
   }

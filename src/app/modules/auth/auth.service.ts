@@ -1,15 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { loginInterface } from './models/login.interface';
+import { loginInterface, userLogged } from './models/login.interface';
 import { environment } from 'src/environments/environment.env';
 import { registerInterface } from './models/register.interface';
-import { tap } from 'rxjs';
+import { BehaviorSubject, tap } from 'rxjs';
 import { Router } from '@angular/router';
+import * as jwt_decode from "jwt-decode";
+const USER_LOCAL_STORAGE_KEY_VENDING = 'userData';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private user = new BehaviorSubject<userLogged | null>(null);
+  user$ = this.user.asObservable();
   urlApiBase = environment.urlApi;
   apiController: String = 'auth';
 
@@ -20,9 +24,10 @@ export class AuthService {
     const apiMethod = 'login';
     const urlApi = this.urlApiBase + this.apiController + "/" + apiMethod;
     return this.httpclient
-      .post(urlApi, credentials)
+      .post<userLogged>(urlApi, credentials)
       .pipe(
-        tap((res) => console.log(res)),
+        tap((response) => this.saveTokenToLocalStore(response.access_token)),
+        tap((response) => this.pushNewUser(response)),
         tap(() => this.redirectToDashboard())
         );
   }
@@ -44,4 +49,13 @@ export class AuthService {
     //this.user.next(null);
     this.router.navigateByUrl('/');
   }
+
+  private saveTokenToLocalStore(userToken: string): void {
+    localStorage.setItem(USER_LOCAL_STORAGE_KEY_VENDING, userToken);
+  }
+
+  private pushNewUser(user: userLogged) {    
+    this.user.next(user);
+  }
+
 }
