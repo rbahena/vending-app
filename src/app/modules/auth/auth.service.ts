@@ -17,7 +17,9 @@ export class AuthService {
   urlApiBase = environment.urlApi;
   apiController: String = 'auth';
 
-  constructor(private httpclient: HttpClient, private router: Router) {}
+  constructor(private httpclient: HttpClient, private router: Router) {
+    this.loadUserFromLocalStorage();
+  }
   
 
   login(credentials: loginInterface) {
@@ -56,6 +58,21 @@ export class AuthService {
 
   private pushNewUser(user: userLogged) {    
     this.user.next(user);
+  }
+
+  private loadUserFromLocalStorage(): void {
+    const nuevoUsuario: userLogged = {
+      access_token: 'tu_token',
+      user: {
+        id_usuario: 1,
+        correo_electronico: 'correo@example.com',
+        telefono: '123456789',
+        estatus_suscriptor: 1,
+        estatus: 1,
+        correo_confirmado: 1
+      }
+    };
+    this.pushNewUser(nuevoUsuario);
   }
 
 }
