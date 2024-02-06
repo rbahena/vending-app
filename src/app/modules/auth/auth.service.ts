@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { loginInterface, userLogged } from './models/login.interface';
+import { User, UserWithToken, loginInterface} from './models/login.interface';
 import { environment } from 'src/environments/environment.env';
 import { registerInterface } from './models/register.interface';
 import { BehaviorSubject, tap } from 'rxjs';
@@ -12,7 +12,7 @@ const USER_LOCAL_STORAGE_KEY_VENDING = 'userData';
   providedIn: 'root',
 })
 export class AuthService {
-  private user = new BehaviorSubject<userLogged | null>(null);
+  private user = new BehaviorSubject<UserWithToken | null>(null);
   user$ = this.user.asObservable();
   urlApiBase = environment.urlApi;
   apiController: String = 'auth';
@@ -26,10 +26,10 @@ export class AuthService {
     const apiMethod = 'login';
     const urlApi = this.urlApiBase + this.apiController + "/" + apiMethod;
     return this.httpclient
-      .post<userLogged>(urlApi, credentials)
+      .post<any>(urlApi, credentials)
       .pipe(
         tap((response) => this.saveTokenToLocalStore(response.access_token)),
-        tap((response) => this.pushNewUser(response)),
+        tap((response) => this.pushNewUser(response.access_token)),
         tap(() => this.redirectToDashboard())
         );
   }
@@ -47,32 +47,39 @@ export class AuthService {
   }
 
   logout(): void {
+    this.removeUserFromLocalStorage();
+    this.user.next(null);
     //this.removeUserFromLocalStorage();
     //this.user.next(null);
     this.router.navigateByUrl('/');
   }
 
   private saveTokenToLocalStore(userToken: string): void {
+    console.log("userToken: ", userToken);
     localStorage.setItem(USER_LOCAL_STORAGE_KEY_VENDING, userToken);
   }
 
-  private pushNewUser(user: userLogged) {    
-    this.user.next(user);
+  private pushNewUser(token: string) {    
+    console.log(this.decodeToken(token));
+    this.user.next(this.decodeToken(token));
   }
 
   private loadUserFromLocalStorage(): void {
-    const nuevoUsuario: userLogged = {
-      access_token: 'tu_token',
-      user: {
-        id_usuario: 1,
-        correo_electronico: 'correo@example.com',
-        telefono: '123456789',
-        estatus_suscriptor: 1,
-        estatus: 1,
-        correo_confirmado: 1
-      }
-    };
-    this.pushNewUser(nuevoUsuario);
+    const userFromLocal = localStorage.getItem(USER_LOCAL_STORAGE_KEY_VENDING);
+    userFromLocal && this.pushNewUser(userFromLocal);
+  }
+
+  private decodeToken(userToken: string): UserWithToken {
+    debugger;
+    const userInfo = jwt_decode.jwtDecode(userToken) as User;
+    console.log("userInfo;: " , jwt_decode);
+    //const userInfo = JSON.parse(window.atob(userToken)) as User;
+    console.log({ ...userInfo, token: userToken });
+    return { ...userInfo, token: userToken };
+  }
+
+  private removeUserFromLocalStorage(): void {
+    localStorage.removeItem(USER_LOCAL_STORAGE_KEY_VENDING);
   }
 
 }

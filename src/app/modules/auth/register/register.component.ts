@@ -15,6 +15,10 @@ export class RegisterComponent {
   constructor(private authService: AuthService, private alertService: AlertService){}
 
   formRegister = new FormGroup({
+    nombre: new FormControl('', {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
     correo_electronico: new FormControl('', {
       validators: [Validators.required, Validators.email],
       nonNullable: true,
