@@ -4,7 +4,8 @@ import { environment } from 'src/environments/environment.env';
 import { User, UserWithToken } from '../auth/models/login.interface';
 import * as jwt_decode from "jwt-decode";
 import { tap } from 'rxjs';
-import { createSuscriptor } from './models/createSuscriptor.interface';
+import { SuscriptorDetail, createSuscriptor } from './models/createSuscriptor.interface';
+const SUSCRIPTOR_LOCAL_STORAGE_KEY_VENDING = 'suscriptorData';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class SuscriptorService {
 
   urlApiBase = environment.urlApi;
   apiController: String = 'subscribers';
+  nombreOperacionDefault:String = environment.nombreOperacionDefault;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -22,7 +24,7 @@ export class SuscriptorService {
     const userInfo = jwt_decode.jwtDecode(userToken) as User;
     const subcriptor: createSuscriptor = {
       fk_usuario: userInfo.id,
-      nombre_operacion: 'Operación de prueba',
+      nombre_operacion: this.nombreOperacionDefault,
       nombre: userInfo.nombre,
       primer_apellido: '',
       segundo_apellido: ''
@@ -30,6 +32,13 @@ export class SuscriptorService {
     return this.httpClient
       .post<any>(urlApi, subcriptor)
       .pipe(
-        tap((response) => console.log("Suscriptor creado: ", response)));
+        tap((response) => console.log("Suscriptor creado: ", response)),
+        tap((response:SuscriptorDetail) => this.saveSuscriptorToLocalStore(response))
+        );
+  }
+
+  private saveSuscriptorToLocalStore(suscriptorData: SuscriptorDetail): void {
+    console.log("suscriptorData: ", suscriptorData);
+    localStorage.setItem(SUSCRIPTOR_LOCAL_STORAGE_KEY_VENDING, suscriptorData.id_suscriptor.toString());
   }
 }
