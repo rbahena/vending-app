@@ -37,8 +37,24 @@ export class SuscriptorService {
         );
   }
 
+  getSuscriptor(userToken: string) {
+    const apiMethod = 'getSuscriptor';
+    const userInfo = jwt_decode.jwtDecode(userToken) as User;
+    const urlApi = this.urlApiBase + this.apiController + "/" + apiMethod  + "/"+ userInfo.id;
+    return this.httpClient
+      .get<any>(urlApi)
+      .pipe(
+        tap((response) => console.log("Suscriptor obtenido: ", response)),
+        tap((response:SuscriptorDetail) => this.saveSuscriptorToLocalStore(response))
+        );
+  }
+
   private saveSuscriptorToLocalStore(suscriptorData: SuscriptorDetail): void {
     console.log("suscriptorData: ", suscriptorData);
     localStorage.setItem(SUSCRIPTOR_LOCAL_STORAGE_KEY_VENDING, suscriptorData.id_suscriptor.toString());
+  }
+
+  public removeSuscriptorFromLocalStorage(): void {
+    localStorage.removeItem(SUSCRIPTOR_LOCAL_STORAGE_KEY_VENDING);
   }
 }

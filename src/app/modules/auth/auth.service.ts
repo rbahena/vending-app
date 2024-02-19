@@ -30,6 +30,7 @@ export class AuthService {
     return this.httpclient
       .post<any>(urlApi, credentials)
       .pipe(
+        tap((response) => this.getSuscriptor(response.access_token)),
         tap((response) => this.saveTokenToLocalStore(response.access_token)),
         tap((response) => this.pushNewUser(response.access_token)),
         tap(() => this.redirectToDashboard())
@@ -52,6 +53,7 @@ export class AuthService {
 
   logout(): void {
     this.removeUserFromLocalStorage();
+    this.suscriptorService.removeSuscriptorFromLocalStorage();
     this.user.next(null);
     //this.removeUserFromLocalStorage();
     //this.user.next(null);
@@ -88,6 +90,21 @@ export class AuthService {
   private createSuscriptor(userToken: string): boolean {
     let response = false;
     this.suscriptorService.createSuscriptor(userToken).pipe(
+      finalize(() => {
+        console.log('Finalize');
+      }),
+      catchError((error: HttpErrorResponse) => {
+        response = false;
+        throw error;
+      }),
+    ).subscribe();
+    response = true;
+    return response;
+  }
+
+  private getSuscriptor(userToken: string): boolean {
+    let response = false;
+    this.suscriptorService.getSuscriptor(userToken).pipe(
       finalize(() => {
         console.log('Finalize');
       }),
