@@ -1,11 +1,13 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User, UserWithToken, loginInterface} from './models/login.interface';
+import { User, UserWithToken, loginInterface } from './models/login.interface';
 import { environment } from 'src/environments/environment.env';
 import { registerInterface } from './models/register.interface';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, catchError, finalize, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import * as jwt_decode from "jwt-decode";
+import { SuscriptorService } from '../suscriptor/suscriptor.service';
+import { AlertService } from '../shared/alert/alert.service';
 const USER_LOCAL_STORAGE_KEY_VENDING = 'userData';
 
 @Injectable({
@@ -17,10 +19,10 @@ export class AuthService {
   urlApiBase = environment.urlApi;
   apiController: String = 'auth';
 
-  constructor(private httpclient: HttpClient, private router: Router) {
+  constructor(private httpclient: HttpClient, private router: Router, private suscriptorService: SuscriptorService, private alertService: AlertService) {
     this.loadUserFromLocalStorage();
   }
-  
+
 
   login(credentials: loginInterface) {
     const apiMethod = 'login';
@@ -31,14 +33,16 @@ export class AuthService {
         tap((response) => this.saveTokenToLocalStore(response.access_token)),
         tap((response) => this.pushNewUser(response.access_token)),
         tap(() => this.redirectToDashboard())
-        );
+      );
   }
 
   register(dataUser: registerInterface) {
     const apiMethod = 'register';
     const urlApi = this.urlApiBase + this.apiController + "/" + apiMethod;
-    return this.httpclient.post(urlApi, dataUser).pipe(
-      tap((res) => console.log(res)),
+    return this.httpclient.post<any>(urlApi, dataUser).pipe(
+      tap((response) => this.createSuscriptor(response.access_token)),
+      tap((response) => this.saveTokenToLocalStore(response.access_token)),
+      tap((response) => this.pushNewUser(response.access_token)),
       tap(() => this.redirectToDashboard()));
   }
 
@@ -59,7 +63,7 @@ export class AuthService {
     localStorage.setItem(USER_LOCAL_STORAGE_KEY_VENDING, userToken);
   }
 
-  private pushNewUser(token: string) {    
+  private pushNewUser(token: string) {
     console.log(this.decodeToken(token));
     this.user.next(this.decodeToken(token));
   }
@@ -70,9 +74,8 @@ export class AuthService {
   }
 
   private decodeToken(userToken: string): UserWithToken {
-    debugger;
     const userInfo = jwt_decode.jwtDecode(userToken) as User;
-    console.log("userInfo;: " , jwt_decode);
+    console.log("userInfo;: ", jwt_decode);
     //const userInfo = JSON.parse(window.atob(userToken)) as User;
     console.log({ ...userInfo, token: userToken });
     return { ...userInfo, token: userToken };
@@ -80,6 +83,21 @@ export class AuthService {
 
   private removeUserFromLocalStorage(): void {
     localStorage.removeItem(USER_LOCAL_STORAGE_KEY_VENDING);
+  }
+
+  private createSuscriptor(userToken: string): boolean {
+    let response = false;
+    this.suscriptorService.createSuscriptor(userToken).pipe(
+      finalize(() => {
+        console.log('Finalize');
+      }),
+      catchError((error: HttpErrorResponse) => {
+        response = false;
+        throw error;
+      }),
+    ).subscribe();
+    response = true;
+    return response;
   }
 
 }
