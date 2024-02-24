@@ -18,6 +18,10 @@ const routes: Routes = [
         loadChildren:()=> import('./products/products.module').then((modules) => modules.ProductsModule)
       },
       {
+        path:'catalogs',
+        loadChildren:()=> import('./catalogs/catalogs.module').then((modules) => modules.CatalogsModule)
+      },
+      {
         path:'',
         component:DashboardComponent
       },
