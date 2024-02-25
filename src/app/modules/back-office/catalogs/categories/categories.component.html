@@ -1,1 +1,19 @@
 <p>categories works!</p>
+<table class="table .table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nombre de la categoria</th>
+        <th scope="col">Estatus</th>
+        <th scope="col">Fecha creación</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let categoria of categorias; index as i; first as isFirst">
+        <td>{{i + 1}}</td>
+        <td>{{ categoria.nombre_categoria }}</td>
+        <td>Activo</td>
+        <td>{{ categoria.fecha_alta | date:'dd/MM/yyyy' }}</td>
+      </tr>
+    </tbody>
+  </table>
