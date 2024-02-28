@@ -4,13 +4,17 @@ import { CommonModule } from '@angular/common';
 import { CatalogsRoutingModule } from './catalogs-routing.module';
 import { Routes } from '@angular/router';
 import { CategoriesComponent } from './categories/categories.component';
+import { ChecarestatusPipe } from './categories/pipes/checarestatus.pipe';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    ChecarestatusPipe,
+    CategoriesComponent
+  ],
   imports: [
     CommonModule,
-    CatalogsRoutingModule
+    CatalogsRoutingModule,
   ]
 })
 export class CatalogsModule { }

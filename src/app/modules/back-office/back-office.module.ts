@@ -4,7 +4,6 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { BackOfficeDashboardComponent } from './back-office-home/back-office-home.component';
 import { BackOfficeRoutingModule } from './back-office-routing.module';
 import { UserDetailComponent } from './navbar/user-detail/user-detail.component';
-import { CategoriesComponent } from './catalogs/categories/categories.component';
 
 
 
@@ -12,8 +11,7 @@ import { CategoriesComponent } from './catalogs/categories/categories.component'
   declarations: [
     NavbarComponent,
     BackOfficeDashboardComponent,
-    UserDetailComponent,
-    CategoriesComponent
+    UserDetailComponent
   ],
   imports: [
     CommonModule,
