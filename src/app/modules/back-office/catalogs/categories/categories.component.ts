@@ -56,6 +56,7 @@ export class CategoriesComponent {
     this.categoriesService.addCategory(this.addCategory).pipe(
       finalize(() => {
         this.getAllCategories();
+        document.getElementById('cerrarModal')!.click();
       }),
       catchError((error: HttpErrorResponse) => {
         console.log(error.error.message);
