@@ -29,16 +29,18 @@
   </tbody>
 </table>
 
-<app-modals [title]="'Agregar nueva categoria'">
+<app-modals [title]="'Agregar nueva categoria'" >
   <form [formGroup]="formCreateCategory" (ngSubmit)="createCategory()">
     <div class="mb-3">
       <label for="nombreCategoria" class="form-label">Nombre Categoria</label>
-      <input type="text" name="nombreCategoria" formControlName="nombreCategoria" autocomplete="off"
-        class="form-control" id="nombreCategoria">
+      <input type="text" name="nombreCategoria" formControlName="nombreCategoria" autocomplete="off" class="form-control" id="nombreCategoria" required>
+      <div class="alert alert-danger mt-2" [hidden]="formCreateCategory.valid || formCreateCategory.pristine">  
+        Este campo es obligatorio
+      </div>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-      <button type="submit" class="btn btn-primary">Agregar</button>
+      <button type="submit" class="btn btn-primary" [disabled]="formCreateCategory.invalid">Agregar</button>
     </div>
   </form>
 

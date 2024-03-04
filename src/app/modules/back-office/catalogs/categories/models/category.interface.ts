@@ -6,3 +6,8 @@ export interface category {
     fecha_alta: Date;
     fecha_baja: Date;
 }
+
+export interface addCategory {
+    fk_suscriptor: number;
+    nombre_categoria: string;
+}
