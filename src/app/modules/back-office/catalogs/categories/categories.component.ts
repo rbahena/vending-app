@@ -44,6 +44,16 @@ export class CategoriesComponent {
     // }),
   });
 
+  formUpdateCategory = new FormGroup({
+    nombreCategoria: new FormControl('', {
+      validators: [Validators.required, Validators.minLength(5)]
+    })
+    // contrasena: new FormControl('', {
+    //   validators: [Validators.required],
+    //   nonNullable: true,
+    // }),
+  });
+
   getAllCategories() {
     this.getIdSuscriptorFromLocaStorage();
     let id_suscriptor: number = this.idSuscriptor;
@@ -94,6 +104,7 @@ export class CategoriesComponent {
     this.categoriesService.getDetalleCategoria(this.getDetalleCategoria).subscribe(
       (response) => {
         this.detalleCategoria = response;
+        this.formUpdateCategory.setValue({nombreCategoria:this.detalleCategoria.nombre_categoria!})
       },
       (error) => {
         console.log(error);
@@ -103,6 +114,12 @@ export class CategoriesComponent {
   }
 
   cancelarRegistroNueva() {
+    this.crud_create = false;
+    this.titleInterface = "Mis Categorias"
+  }
+
+  cancelarUpdate() {
+    this.crud_update = false;
     this.crud_create = false;
     this.titleInterface = "Mis Categorias"
   }

@@ -51,6 +51,22 @@
   </form>
 </ng-container>
 
+<ng-container *ngIf="!crud_create && crud_update">
+  <form [formGroup]="formUpdateCategory" (ngSubmit)="createCategory()">
+    <div class="mb-3">
+      <label for="nombreCategoria" class="form-label">Nombre Categoria</label>
+      <input type="text" name="nombreCategoria" formControlName="nombreCategoria" autocomplete="off"
+        class="form-control" id="nombreCategoria" required>
+      <div class="alert alert-danger mt-2" [hidden]="formCreateCategory.valid || formCreateCategory.pristine">
+        Este campo es obligatorio
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="cancelarUpdate()">Cancelar</button>
+      &nbsp;
+      <button type="submit" class="btn btn-primary" [disabled]="formCreateCategory.invalid">Actualizar</button>
+    </div>
+  </form>
+</ng-container>
 
-<app-actualiza-categoria [detalleCategoria]="detalleCategoria"
-  *ngIf="crud_update"></app-actualiza-categoria>
+
