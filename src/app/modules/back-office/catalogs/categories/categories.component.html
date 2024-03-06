@@ -24,7 +24,7 @@
         <td>{{ categoria.estatus | checarestatus }}</td>
         <td>{{ categoria.fecha_alta | date:'dd/MM/yyyy' }}</td>
         <td>
-          <a (click)="getDetailCategory(categoria.id_categoria)"><i class="fa-solid fa-pen-to-square"></i></a>
+          <a (click)="getDetailCategory(categoria.id_categoria)" style="cursor: pointer;"><i class="fa-solid fa-pen-to-square"></i></a>
           &nbsp;&nbsp;
           <a href=""><i class="fa-solid fa-trash"></i></a>
         </td>
