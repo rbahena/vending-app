@@ -38,7 +38,7 @@
     <div class="mb-3">
       <label for="nombreCategoria" class="form-label">Nombre Categoria</label>
       <input type="text" name="nombreCategoria" formControlName="nombreCategoria" autocomplete="off"
-        class="form-control" id="nombreCategoria" required>
+        class="form-control" id="nombreCategoria" required value="id_categoria">
       <div class="alert alert-danger mt-2" [hidden]="formCreateCategory.valid || formCreateCategory.pristine">
         Este campo es obligatorio
       </div>
@@ -52,7 +52,7 @@
 </ng-container>
 
 <ng-container *ngIf="!crud_create && crud_update">
-  <form [formGroup]="formUpdateCategory" (ngSubmit)="createCategory()">
+  <form [formGroup]="formUpdateCategory" (ngSubmit)="actualizaCategoria()">
     <div class="mb-3">
       <label for="nombreCategoria" class="form-label">Nombre Categoria</label>
       <input type="text" name="nombreCategoria" formControlName="nombreCategoria" autocomplete="off"
@@ -64,7 +64,7 @@
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" (click)="cancelarUpdate()">Cancelar</button>
       &nbsp;
-      <button type="submit" class="btn btn-primary" [disabled]="formCreateCategory.invalid">Actualizar</button>
+      <button type="submit" class="btn btn-primary" [disabled]="formUpdateCategory.invalid">Actualizar</button>
     </div>
   </form>
 </ng-container>

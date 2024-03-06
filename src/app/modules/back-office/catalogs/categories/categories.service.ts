@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { AlertService } from 'src/app/modules/shared/alert/alert.service';
 import { environment } from 'src/environments/environment.env';
-import { addCategory, category, getDetalleCategoria } from './models/category.interface';
+import { addCategory, category, getDetalleCategoria, updateCategory } from './models/category.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +35,12 @@ export class CategoriesService {
     const apiMethod = 'getCategory';
     const urlApi = this.urlApiBase + this.apiController + "/" + apiMethod;
     return this.httpClient.post<any>(urlApi, getDetalleCategoria);
+  }
+  
+  updateCategory(updateCategoria: updateCategory) {
+    const apiMethod = 'updateCategory';
+    const urlApi = this.urlApiBase + this.apiController + "/" + apiMethod;
+    return this.httpClient.post<any>(urlApi, updateCategoria);
   }
 
 }

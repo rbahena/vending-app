@@ -16,3 +16,9 @@ export interface getDetalleCategoria {
     fk_suscriptor: number;
     id_categoria: number;
 }
+
+export interface updateCategory{
+    id_categoria: number;
+    fk_suscriptor: number;
+    nombre_categoria: string;
+}
