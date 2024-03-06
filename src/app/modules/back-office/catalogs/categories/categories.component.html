@@ -1,48 +1,56 @@
-<h3>Mis categorías</h3>
+<h3>{{titleInterface}}</h3>
 <br>
 <br>
-<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#dinamicModal">
-  Agregar
-</button>
+<div *ngIf="!crud_create && !crud_update">
+  <button type="button" class="btn btn-success" (click)="showCreateCategory()">
+    Agregar nueva
+  </button>
+  <br>
+  <br>
+  <table class="table .table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Estatus</th>
+        <th scope="col">Fecha creación</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let categoria of categorias; index as i; first as isFirst">
+        <td>{{i + 1}}</td>
+        <td>{{ categoria.nombre_categoria }}</td>
+        <td>{{ categoria.estatus | checarestatus }}</td>
+        <td>{{ categoria.fecha_alta | date:'dd/MM/yyyy' }}</td>
+        <td>
+          <a (click)="getDetailCategory(categoria.id_categoria)"><i class="fa-solid fa-pen-to-square"></i></a>
+          &nbsp;&nbsp;
+          <a href=""><i class="fa-solid fa-trash"></i></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-<br>
-<br>
-<table class="table .table-striped">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Nombre</th>
-      <th scope="col">Estatus</th>
-      <th scope="col">Fecha creación</th>
-      <th scope="col">Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let categoria of categorias; index as i; first as isFirst">
-      <td>{{i + 1}}</td>
-      <td>{{ categoria.nombre_categoria }}</td>
-      <td>{{ categoria.estatus | checarestatus }}</td>
-      <td>{{ categoria.fecha_alta | date:'dd/MM/yyyy' }}</td>
-      <td>
-        <a (click)="getDetailCategory(categoria.id_categoria)"><i class="fa-solid fa-pen-to-square"></i></a> 
-        &nbsp;&nbsp; 
-        <a href=""><i class="fa-solid fa-trash"></i></a></td>
-    </tr>
-  </tbody>
-</table>
-
-<app-modals [title]="'Agregar nueva categoria'" >
+<ng-container *ngIf="crud_create && !crud_update">
   <form [formGroup]="formCreateCategory" (ngSubmit)="createCategory()">
     <div class="mb-3">
       <label for="nombreCategoria" class="form-label">Nombre Categoria</label>
-      <input type="text" name="nombreCategoria" formControlName="nombreCategoria" autocomplete="off" class="form-control" id="nombreCategoria" required>
-      <div class="alert alert-danger mt-2" [hidden]="formCreateCategory.valid || formCreateCategory.pristine">  
+      <input type="text" name="nombreCategoria" formControlName="nombreCategoria" autocomplete="off"
+        class="form-control" id="nombreCategoria" required>
+      <div class="alert alert-danger mt-2" [hidden]="formCreateCategory.valid || formCreateCategory.pristine">
         Este campo es obligatorio
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cerrarModal">Cancelar</button>
+      <button type="button" class="btn btn-secondary" (click)="cancelarRegistroNueva()">Cancelar</button>
+      &nbsp;
       <button type="submit" class="btn btn-primary" [disabled]="formCreateCategory.invalid">Agregar</button>
     </div>
   </form>
-</app-modals>
+</ng-container>
+
+
+<app-actualiza-categoria [detalleCategoria]="detalleCategoria"
+  *ngIf="crud_update"></app-actualiza-categoria>

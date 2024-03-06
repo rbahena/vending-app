@@ -11,6 +11,7 @@ import { addCategory, category, getDetalleCategoria } from './models/category.in
 export class CategoriesService {
   urlApiBase = environment.urlApi;
   apiController: String = 'categories';
+  
 
   constructor(private httpClient: HttpClient, private alertService: AlertService) { }
 

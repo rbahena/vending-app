@@ -13,6 +13,9 @@ const SUSCRIPTOR_LOCAL_STORAGE_KEY_VENDING = 'suscriptorData';
   styleUrls: ['./categories.component.css']
 })
 export class CategoriesComponent {
+  titleInterface: string = 'Mis Categorias';
+  crud_create: boolean = false;
+  crud_update:boolean = false;
   categorias: category[] = [];
   addCategory: addCategory = {
     fk_suscriptor: 0,
@@ -24,6 +27,7 @@ export class CategoriesComponent {
     id_categoria: 0
   };
   idSuscriptor: number = 0;
+  detalleCategoria: Partial<category> = {}
 
   constructor(private categoriesService: CategoriesService, private alertService: AlertService) { }
   ngOnInit(): void {
@@ -51,6 +55,11 @@ export class CategoriesComponent {
     );
   }
 
+  showCreateCategory() {
+    this.crud_create = true;
+    this.titleInterface = "Agregar nueva categoria"
+  }
+
   createCategory() {
     if (this.formCreateCategory.invalid) return;
     this.getIdSuscriptorFromLocaStorage();
@@ -61,7 +70,10 @@ export class CategoriesComponent {
     this.categoriesService.addCategory(this.addCategory).pipe(
       finalize(() => {
         this.getAllCategories();
-        document.getElementById('cerrarModal')!.click();
+        this.crud_create = false;
+        this.titleInterface = "Mis Categorias"
+        this.alertService.showAlert("La categoria se agrego de manera correcta");
+        this.formCreateCategory.reset();
       }),
       catchError((error: HttpErrorResponse) => {
         console.log(error.error.message);
@@ -72,6 +84,8 @@ export class CategoriesComponent {
   }
 
   getDetailCategory(id_categoria: number) {
+    this.crud_update = true;
+    this.titleInterface ='Actualiza categoria';
     this.getIdSuscriptorFromLocaStorage();
     this.getDetalleCategoria = {
       fk_suscriptor: this.idSuscriptor,
@@ -79,13 +93,18 @@ export class CategoriesComponent {
     }
     this.categoriesService.getDetalleCategoria(this.getDetalleCategoria).subscribe(
       (response) => {
-        console.log("response: ", response);
+        this.detalleCategoria = response;
       },
       (error) => {
         console.log(error);
       }
 
     );
+  }
+
+  cancelarRegistroNueva() {
+    this.crud_create = false;
+    this.titleInterface = "Mis Categorias"
   }
 
   private getIdSuscriptorFromLocaStorage(): void {
