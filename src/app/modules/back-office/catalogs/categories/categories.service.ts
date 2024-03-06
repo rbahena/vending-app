@@ -43,4 +43,10 @@ export class CategoriesService {
     return this.httpClient.post<any>(urlApi, updateCategoria);
   }
 
+  deleteCategory(updateCategoria: updateCategory) {
+    const apiMethod = 'deleteCategory';
+    const urlApi = this.urlApiBase + this.apiController + "/" + apiMethod;
+    return this.httpClient.post<any>(urlApi, updateCategoria);
+  }
+
 }

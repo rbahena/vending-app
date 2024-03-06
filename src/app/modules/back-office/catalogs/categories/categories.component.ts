@@ -151,6 +151,27 @@ export class CategoriesComponent {
     ).subscribe();
   }
 
+  eliminaCategoria(id_categoria: number){
+    console.log("Elimina categoria: ", id_categoria);
+    this.getIdSuscriptorFromLocaStorage();
+    this.updateCategoria = {
+      fk_suscriptor: this.idSuscriptor,
+      nombre_categoria: "",
+      id_categoria: id_categoria
+    }
+    this.categoriesService.deleteCategory(this.updateCategoria).pipe(
+      finalize(() => {
+        this.getAllCategories();
+        this.alertService.showAlert("La categoria se actualizo de manera correcta");
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.log(error.error.message);
+        this.alertService.showAlert(error.error.message, "Error");
+        throw error;
+      }),
+    ).subscribe();
+  }
+
   private getIdSuscriptorFromLocaStorage(): void {
     const idSuscr = localStorage.getItem(SUSCRIPTOR_LOCAL_STORAGE_KEY_VENDING);
     this.idSuscriptor = Number(idSuscr);

@@ -18,7 +18,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let categoria of categorias; index as i; first as isFirst">
+      <tr *ngFor="let categoria of categorias; index as i; first as isFirst" >
         <td>{{i + 1}}</td>
         <td>{{ categoria.nombre_categoria }}</td>
         <td>{{ categoria.estatus | checarestatus }}</td>
@@ -26,7 +26,7 @@
         <td>
           <a (click)="getDetailCategory(categoria.id_categoria)" style="cursor: pointer;"><i class="fa-solid fa-pen-to-square"></i></a>
           &nbsp;&nbsp;
-          <a href=""><i class="fa-solid fa-trash"></i></a>
+          <a (click)="eliminaCategoria(categoria.id_categoria)"><i class="fa-solid fa-trash"></i></a>
         </td>
       </tr>
     </tbody>
