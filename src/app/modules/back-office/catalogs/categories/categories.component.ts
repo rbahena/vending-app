@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CategoriesService } from './categories.service';
 import { Observable, catchError, finalize } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
-import { addCategory, category } from './models/category.interface';
+import { addCategory, category, getDetalleCategoria } from './models/category.interface';
 import { AlertService } from 'src/app/modules/shared/alert/alert.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 const SUSCRIPTOR_LOCAL_STORAGE_KEY_VENDING = 'suscriptorData';
@@ -17,6 +17,11 @@ export class CategoriesComponent {
   addCategory: addCategory = {
     fk_suscriptor: 0,
     nombre_categoria: ''
+  };
+
+  getDetalleCategoria: getDetalleCategoria = {
+    fk_suscriptor: 0,
+    id_categoria: 0
   };
   idSuscriptor: number = 0;
 
@@ -64,6 +69,23 @@ export class CategoriesComponent {
         throw error;
       }),
     ).subscribe();
+  }
+
+  getDetailCategory(id_categoria: number) {
+    this.getIdSuscriptorFromLocaStorage();
+    this.getDetalleCategoria = {
+      fk_suscriptor: this.idSuscriptor,
+      id_categoria: id_categoria,
+    }
+    this.categoriesService.getDetalleCategoria(this.getDetalleCategoria).subscribe(
+      (response) => {
+        console.log("response: ", response);
+      },
+      (error) => {
+        console.log(error);
+      }
+
+    );
   }
 
   private getIdSuscriptorFromLocaStorage(): void {

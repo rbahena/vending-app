@@ -11,3 +11,8 @@ export interface addCategory {
     fk_suscriptor: number;
     nombre_categoria: string;
 }
+
+export interface getDetalleCategoria {
+    fk_suscriptor: number;
+    id_categoria: number;
+}

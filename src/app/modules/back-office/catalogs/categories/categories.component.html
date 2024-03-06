@@ -23,8 +23,10 @@
       <td>{{ categoria.nombre_categoria }}</td>
       <td>{{ categoria.estatus | checarestatus }}</td>
       <td>{{ categoria.fecha_alta | date:'dd/MM/yyyy' }}</td>
-      <td><a href=""><i class="fa-solid fa-pen-to-square"></i></a> &nbsp;&nbsp; <a href=""><i
-            class="fa-solid fa-trash"></i></a></td>
+      <td>
+        <a (click)="getDetailCategory(categoria.id_categoria)"><i class="fa-solid fa-pen-to-square"></i></a> 
+        &nbsp;&nbsp; 
+        <a href=""><i class="fa-solid fa-trash"></i></a></td>
     </tr>
   </tbody>
 </table>
@@ -43,5 +45,4 @@
       <button type="submit" class="btn btn-primary" [disabled]="formCreateCategory.invalid">Agregar</button>
     </div>
   </form>
-
 </app-modals>

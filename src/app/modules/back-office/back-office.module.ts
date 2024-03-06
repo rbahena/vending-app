@@ -4,6 +4,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { BackOfficeDashboardComponent } from './back-office-home/back-office-home.component';
 import { BackOfficeRoutingModule } from './back-office-routing.module';
 import { UserDetailComponent } from './navbar/user-detail/user-detail.component';
+import { ActualizaCategoriaComponent } from './categories/components/actualiza-categoria/actualiza-categoria.component';
 
 
 
@@ -11,7 +12,8 @@ import { UserDetailComponent } from './navbar/user-detail/user-detail.component'
   declarations: [
     NavbarComponent,
     BackOfficeDashboardComponent,
-    UserDetailComponent
+    UserDetailComponent,
+    ActualizaCategoriaComponent
   ],
   imports: [
     CommonModule,
