@@ -21,6 +21,10 @@ export class SuscriptorService {
   createSuscriptor(userToken: string) {
     const apiMethod = 'addsubscriber';
     const urlApi = this.urlApiBase + this.apiController + "/" + apiMethod;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${userToken}`
+    })
     const userInfo = jwt_decode.jwtDecode(userToken) as User;
     const subcriptor: createSuscriptor = {
       fk_usuario: userInfo.id,
@@ -30,7 +34,7 @@ export class SuscriptorService {
       segundo_apellido: ''
     }
     return this.httpClient
-      .post<any>(urlApi, subcriptor)
+      .post<any>(urlApi, subcriptor, {headers})
       .pipe(
         tap((response) => console.log("Suscriptor creado: ", response)),
         tap((response:SuscriptorDetail) => this.saveSuscriptorToLocalStore(response))
@@ -41,7 +45,10 @@ export class SuscriptorService {
     const apiMethod = 'getSuscriptor';
     const userInfo = jwt_decode.jwtDecode(userToken) as User;
     const urlApi = this.urlApiBase + this.apiController + "/" + apiMethod  + "/"+ userInfo.id;
-    const headers = { 'Authorization':  `Bearer ${userToken}` }
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${userToken}`
+    })
     return this.httpClient
       .get<any>(urlApi, {headers})
       .pipe(
