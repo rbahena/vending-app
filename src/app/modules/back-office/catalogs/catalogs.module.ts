@@ -7,13 +7,15 @@ import { CategoriesComponent } from './categories/categories.component';
 import { ChecarestatusPipe } from './categories/pipes/checarestatus.pipe';
 import { ModalsComponent } from '../../shared/modals/modals.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EnvasesComponent } from './envases/envases.component';
 
 
 @NgModule({
   declarations: [
     ChecarestatusPipe,
     CategoriesComponent,
-    ModalsComponent
+    ModalsComponent,
+    EnvasesComponent
   ],
   imports: [
     CommonModule,
