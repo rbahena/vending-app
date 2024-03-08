@@ -19,7 +19,7 @@ export class EnvasesService {
   crearEnvase(crearEnvaseDto: agregarEnvaseDto) { }
 
   obtenerEnvases(id_suscriptor: number): Observable<envaseDto[]> {
-    const metodApi = 'obtenerEnvase';
+    const metodApi = 'obtenerEnvases';
     const urlApi = this.urlApiBase + this.apiController + "/" + metodApi + "/" + id_suscriptor;
     const token: String = this.loadUserFromLocalStorage();
     const headers = new HttpHeaders({
@@ -29,11 +29,38 @@ export class EnvasesService {
     return this.httpClient.get<envaseDto[]>(urlApi);
   }
 
-  obtenerEnvase(obtenDetalleEnvaseDto: obtenDetalleEnvaseDto) { }
+  obtenerEnvase(obtenDetalleEnvaseDto: obtenDetalleEnvaseDto) {
+    const metodApi = 'obtenerEnvase';
+    const urlApi = this.urlApiBase + this.apiController + "/" + metodApi;
+    const token: String = this.loadUserFromLocalStorage();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.httpClient.post<any>(urlApi, obtenDetalleEnvaseDto);
+  }
 
-  actualizaEnvase(actualizaEnvaseDto: actualizaEnvaseDto) { }
+  actualizaEnvase(actualizaEnvaseDto: actualizaEnvaseDto) {
+    const metodApi = 'actualizaEnvase';
+    const urlApi = this.urlApiBase + this.apiController + "/" + metodApi;
+    const token: String = this.loadUserFromLocalStorage();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.httpClient.post<any>(urlApi, actualizaEnvaseDto);
+  }
 
-  eliminaEnvase(actualizaEnvaseDto: actualizaEnvaseDto) { }
+  eliminaEnvase(actualizaEnvaseDto: actualizaEnvaseDto) {
+    const metodApi = 'eliminaEnvase';
+    const urlApi = this.urlApiBase + this.apiController + "/" + metodApi;
+    const token: String = this.loadUserFromLocalStorage();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.httpClient.post<any>(urlApi, actualizaEnvaseDto);
+  }
 
   private loadUserFromLocalStorage(): String {
     return localStorage.getItem(USER_LOCAL_STORAGE_KEY_VENDING)!;
