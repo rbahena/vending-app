@@ -16,7 +16,16 @@ export class EnvasesService {
 
   constructor(private httpClient: HttpClient) { }
 
-  crearEnvase(crearEnvaseDto: agregarEnvaseDto) { }
+  crearEnvase(crearEnvaseDto: agregarEnvaseDto) { 
+    const metodApi = 'crearEnvase';
+    const urlApi = this.urlApiBase + this.apiController + "/" + metodApi;
+    const token: String = this.loadUserFromLocalStorage();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.httpClient.post<envaseDto>(urlApi, crearEnvaseDto);
+  }
 
   obtenerEnvases(id_suscriptor: number): Observable<envaseDto[]> {
     const metodApi = 'obtenerEnvases';
