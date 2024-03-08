@@ -15,16 +15,16 @@ const SUSCRIPTOR_LOCAL_STORAGE_KEY_VENDING = 'suscriptorData';
 export class CategoriesComponent {
   titleInterface: string = 'Mis Categorias';
   crud_create: boolean = false;
-  crud_update:boolean = false;
+  crud_update: boolean = false;
   categorias: category[] = [];
   addCategory: addCategory = {
     fk_suscriptor: 0,
     nombre_categoria: ''
   };
-  updateCategoria:updateCategory = {
-    fk_suscriptor:0,
-    id_categoria:0,
-    nombre_categoria:''
+  updateCategoria: updateCategory = {
+    fk_suscriptor: 0,
+    id_categoria: 0,
+    nombre_categoria: ''
   }
 
   getDetalleCategoria: getDetalleCategoria = {
@@ -97,7 +97,7 @@ export class CategoriesComponent {
 
   getDetailCategory(id_categoria: number) {
     this.crud_update = true;
-    this.titleInterface ='Actualiza categoria';
+    this.titleInterface = 'Actualiza categoria';
     this.getIdSuscriptorFromLocaStorage();
     this.getDetalleCategoria = {
       fk_suscriptor: this.idSuscriptor,
@@ -106,7 +106,7 @@ export class CategoriesComponent {
     this.categoriesService.getDetalleCategoria(this.getDetalleCategoria).subscribe(
       (response) => {
         this.detalleCategoria = response;
-        this.formUpdateCategory.setValue({nombreCategoria:this.detalleCategoria.nombre_categoria!, id_categoria:this.detalleCategoria.id_categoria})
+        this.formUpdateCategory.setValue({ nombreCategoria: this.detalleCategoria.nombre_categoria!, id_categoria: this.detalleCategoria.id_categoria })
       },
       (error) => {
         console.log(error);
@@ -126,7 +126,7 @@ export class CategoriesComponent {
     this.titleInterface = "Mis Categorias"
   }
 
-  actualizaCategoria(){
+  actualizaCategoria() {
     if (this.formUpdateCategory.invalid) return;
     this.getIdSuscriptorFromLocaStorage();
     this.updateCategoria = {
@@ -134,24 +134,22 @@ export class CategoriesComponent {
       nombre_categoria: this.formUpdateCategory.value.nombreCategoria!,
       id_categoria: this.formUpdateCategory.value.id_categoria
     }
-    this.categoriesService.updateCategory(this.updateCategoria).pipe(
-      finalize(() => {
+    this.categoriesService.updateCategory(this.updateCategoria).subscribe({
+      next: () => {
         this.getAllCategories();
         this.alertService.showAlert("La categoria se actualizo de manera correcta");
         this.crud_create = false;
         this.crud_update = false;
         this.titleInterface = "Mis Categorias"
         this.formUpdateCategory.reset();
-      }),
-      catchError((error: HttpErrorResponse) => {
-        console.log(error.error.message);
-        this.alertService.showAlert(error.error.message, "Error");
-        throw error;
-      }),
-    ).subscribe();
+      },
+      error: (error: HttpErrorResponse) => {
+        this.alertService.showAlert(error.error.message, 'error');
+      }
+    })
   }
 
-  eliminaCategoria(id_categoria: number){
+  eliminaCategoria(id_categoria: number) {
     console.log("Elimina categoria: ", id_categoria);
     this.getIdSuscriptorFromLocaStorage();
     this.updateCategoria = {
