@@ -1,6 +1,11 @@
 <h3>{{titleEnvasesInterface}}</h3>
 <br>
-<section>
+<section *ngIf="!activarFormularioEnvase">
+    <button type="button" class="btn btn-success" (click)="mostrarFormularioEnvase()">
+        Agregar nuevo envase
+    </button>
+    <br>
+    <br>
     <table class="table .table-striped">
         <thead>
             <tr>
@@ -15,15 +20,32 @@
             <tr *ngFor="let envase of envases; index as i; first as isFirst">
                 <td>{{i + 1}}</td>
                 <td>{{ envase.nombre_envase }}</td>
-                <td>{{ envase.estatus }}</td>
+                <td>{{ envase.estatus | checarestatus }}</td>
                 <td>{{ envase.fecha_alta | date:'dd/MM/yyyy' }}</td>
                 <td>
-                    <a style="cursor: pointer;"><i
-                            class="fa-solid fa-pen-to-square"></i></a>
+                    <a style="cursor: pointer;"><i class="fa-solid fa-pen-to-square"></i></a>
                     &nbsp;&nbsp;
-                    <a ><i class="fa-solid fa-trash"></i></a>
+                    <a><i class="fa-solid fa-trash"></i></a>
                 </td>
             </tr>
         </tbody>
     </table>
 </section>
+
+<ng-container *ngIf="activarFormularioEnvase">
+    <form [formGroup]="envaseForm" (ngSubmit)="crearActualizarEnvase()">
+        <div class="mb-3">
+            <label for="nombreEnvase" class="form-label">Nombre envase</label>
+            <input type="text" name="nombreEnvase" formControlName="nombreEnvase" autocomplete="off"
+                class="form-control" id="nombreEnvase" required>
+            <div class="alert alert-danger mt-2" [hidden]="envaseForm.valid || envaseForm.pristine">
+                Este campo es obligatorio
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="ocultarFormularioEnvase()">Cancelar</button>
+            &nbsp;
+            <button type="submit" class="btn btn-primary" [disabled]="envaseForm.invalid">Agregar</button>
+        </div>
+    </form>
+</ng-container>
