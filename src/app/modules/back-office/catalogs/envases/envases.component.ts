@@ -32,12 +32,10 @@ export class EnvasesComponent {
   });
 
   async obtenerEnvases() {
-    console.log("Obtener");
     this.id_suscriptor = this.recuperaIdSuscriptorLocalStorage();
-    (await this.envaseService.obtenerEnvases(this.id_suscriptor)).subscribe({
+    this.envaseService.obtenerEnvases(this.id_suscriptor).subscribe({
       next: response => {
         this.envases = response;
-        this.alertService.showAlert('Los envases se recuperaron de manera exitosa.');
         console.log("this.envases: ", this.envases);
       },
       error: (error: HttpErrorResponse) => {
@@ -109,8 +107,24 @@ export class EnvasesComponent {
 
   }
 
+  eliminaEnvase(id_envase: number){
+    this.actualizaEnvaseDto = {
+      fk_suscriptor:this.recuperaIdSuscriptorLocalStorage(),
+      id_envase:id_envase
+    }
+    this.envaseService.eliminaEnvase(this.actualizaEnvaseDto).subscribe({
+      next: ()=> {
+        this.obtenerEnvases();
+        this.alertService.showAlert('El envase se elimino de forma existosa.');
+      },
+      error: (error: HttpErrorResponse) => {
+        this.alertService.showAlert(error.error.message, 'error');
+      }
+    })
+  }
 
   mostrarFormularioEnvase() {
+    this.envaseFormulario.reset();
     this.activarFormularioEnvase = true;
     this.titleEnvasesInterface = "Agregar nuevo envase"
     this.valorBoton = 'Agregar'
@@ -119,6 +133,7 @@ export class EnvasesComponent {
   ocultarFormularioEnvase() {
     this.activarFormularioEnvase = false;
     this.titleEnvasesInterface = "Lista de envases"
+    this.envaseFormulario.reset();
   }
 
   private recuperaIdSuscriptorLocalStorage(): number {

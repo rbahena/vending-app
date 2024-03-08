@@ -24,7 +24,7 @@ export class EnvasesService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    return this.httpClient.post<envaseDto>(urlApi, crearEnvaseDto);
+    return this.httpClient.post<envaseDto>(urlApi, crearEnvaseDto, {headers});
   }
 
   obtenerEnvases(id_suscriptor: number): Observable<envaseDto[]> {
@@ -35,7 +35,7 @@ export class EnvasesService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    return this.httpClient.get<envaseDto[]>(urlApi);
+    return this.httpClient.get<envaseDto[]>(urlApi, {headers});
   }
 
   obtenerEnvase(obtenDetalleEnvaseDto: obtenDetalleEnvaseDto): Observable<envaseDto> {
@@ -46,7 +46,7 @@ export class EnvasesService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    return this.httpClient.post<envaseDto>(urlApi, obtenDetalleEnvaseDto);
+    return this.httpClient.post<envaseDto>(urlApi, obtenDetalleEnvaseDto, {headers});
   }
 
   actualizaEnvase(actualizaEnvaseDto: actualizaEnvaseDto) {
@@ -57,7 +57,7 @@ export class EnvasesService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    return this.httpClient.post<any>(urlApi, actualizaEnvaseDto);
+    return this.httpClient.post<any>(urlApi, actualizaEnvaseDto, {headers});
   }
 
   eliminaEnvase(actualizaEnvaseDto: actualizaEnvaseDto) {
@@ -68,7 +68,7 @@ export class EnvasesService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    return this.httpClient.post<any>(urlApi, actualizaEnvaseDto);
+    return this.httpClient.post<any>(urlApi, actualizaEnvaseDto, {headers});
   }
 
   private loadUserFromLocalStorage(): String {
