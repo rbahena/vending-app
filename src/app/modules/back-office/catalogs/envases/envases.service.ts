@@ -35,7 +35,7 @@ export class EnvasesService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    return this.httpClient.get<envaseDto[]>(urlApi);
+    return  this.httpClient.get<envaseDto[]>(urlApi);
   }
 
   obtenerEnvase(obtenDetalleEnvaseDto: obtenDetalleEnvaseDto) {

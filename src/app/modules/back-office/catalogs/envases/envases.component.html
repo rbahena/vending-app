@@ -1,1 +1,29 @@
-<p>envases works!</p>
+<h3>{{titleEnvasesInterface}}</h3>
+<br>
+<section>
+    <table class="table .table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Estatus</th>
+                <th scope="col">Fecha creación</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let envase of envases; index as i; first as isFirst">
+                <td>{{i + 1}}</td>
+                <td>{{ envase.nombre_envase }}</td>
+                <td>{{ envase.estatus }}</td>
+                <td>{{ envase.fecha_alta | date:'dd/MM/yyyy' }}</td>
+                <td>
+                    <a style="cursor: pointer;"><i
+                            class="fa-solid fa-pen-to-square"></i></a>
+                    &nbsp;&nbsp;
+                    <a ><i class="fa-solid fa-trash"></i></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
