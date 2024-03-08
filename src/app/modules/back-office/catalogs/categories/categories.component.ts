@@ -13,7 +13,7 @@ const SUSCRIPTOR_LOCAL_STORAGE_KEY_VENDING = 'suscriptorData';
   styleUrls: ['./categories.component.css']
 })
 export class CategoriesComponent {
-  titleInterface: string = 'Mis Categorias';
+  titleInterface: string = 'Categorias';
   crud_create: boolean = false;
   crud_update: boolean = false;
   categorias: category[] = [];
@@ -83,7 +83,7 @@ export class CategoriesComponent {
       finalize(() => {
         this.getAllCategories();
         this.crud_create = false;
-        this.titleInterface = "Mis Categorias"
+        this.titleInterface = "Categorias"
         this.alertService.showAlert("La categoria se agrego de manera correcta");
         this.formCreateCategory.reset();
       }),
@@ -117,13 +117,13 @@ export class CategoriesComponent {
 
   cancelarRegistroNueva() {
     this.crud_create = false;
-    this.titleInterface = "Mis Categorias"
+    this.titleInterface = "Categorias"
   }
 
   cancelarUpdate() {
     this.crud_update = false;
     this.crud_create = false;
-    this.titleInterface = "Mis Categorias"
+    this.titleInterface = "Categorias"
   }
 
   actualizaCategoria() {
@@ -140,7 +140,7 @@ export class CategoriesComponent {
         this.alertService.showAlert("La categoria se actualizo de manera correcta");
         this.crud_create = false;
         this.crud_update = false;
-        this.titleInterface = "Mis Categorias"
+        this.titleInterface = "Categorias"
         this.formUpdateCategory.reset();
       },
       error: (error: HttpErrorResponse) => {

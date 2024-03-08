@@ -2,7 +2,7 @@
 <br>
 <section *ngIf="!activarFormularioEnvase">
     <button type="button" class="btn btn-success" (click)="mostrarFormularioEnvase()">
-        Agregar nuevo envase
+        Agregar nuevo tipo
     </button>
     <br>
     <br>
@@ -23,9 +23,9 @@
                 <td>{{ envase.estatus | checarestatus }}</td>
                 <td>{{ envase.fecha_alta | date:'dd/MM/yyyy' }}</td>
                 <td>
-                    <a (click)="obtenerDetalleEnvase(envase.id_envase)" style="cursor: pointer;"><i class="fa-solid fa-pen-to-square"></i></a>
+                    <a (click)="obtenerDetalleEnvase(envase.id_envase)" class="edit-button"><i class="fa-solid fa-pen-to-square"></i></a>
                     &nbsp;&nbsp;
-                    <a (click)="eliminaEnvase(envase.id_envase)" style="cursor: pointer;"><i class="fa-solid fa-trash"></i></a>
+                    <a (click)="eliminaEnvase(envase.id_envase)" class="delete-button"><i class="fa-solid fa-trash"></i></a>
                 </td>
             </tr>
         </tbody>
@@ -37,7 +37,7 @@
         <div class="mb-3">
             <label for="nombreEnvase" class="form-label">Nombre envase</label>
             <input type="text" name="nombreEnvase" formControlName="nombre_envase" autocomplete="off"
-                class="form-control" id="nombreEnvase" required>
+                class="form-control" id="nombreEnvase" placeholder="Ejemplo: Pet">
             <div class="alert alert-danger mt-2" [hidden]="envaseFormulario.valid || envaseFormulario.pristine">
                 Este campo es obligatorio
             </div>

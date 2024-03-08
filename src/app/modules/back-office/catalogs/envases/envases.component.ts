@@ -15,7 +15,7 @@ export class EnvasesComponent {
   agregarEnvaseDto: agregarEnvaseDto = {};
   obtenerEnvaseDto: obtenDetalleEnvaseDto = {};
   actualizaEnvaseDto: actualizaEnvaseDto = {};
-  titleEnvasesInterface: String = 'Lista de Envases';
+  titleEnvasesInterface: String = 'Tipos de envase';
   valorBoton: String = 'Agregar';
   activarFormularioEnvase: boolean = false;
   id_suscriptor: number | undefined;
@@ -115,7 +115,7 @@ export class EnvasesComponent {
     this.envaseService.eliminaEnvase(this.actualizaEnvaseDto).subscribe({
       next: ()=> {
         this.obtenerEnvases();
-        this.alertService.showAlert('El envase se elimino de forma existosa.');
+        this.alertService.showAlert('El envase se eliminó de forma existosa.');
       },
       error: (error: HttpErrorResponse) => {
         this.alertService.showAlert(error.error.message, 'error');
@@ -126,7 +126,7 @@ export class EnvasesComponent {
   mostrarFormularioEnvase() {
     this.envaseFormulario.reset();
     this.activarFormularioEnvase = true;
-    this.titleEnvasesInterface = "Agregar nuevo envase"
+    this.titleEnvasesInterface = "Agregar nuevo tipo de envase"
     this.valorBoton = 'Agregar'
   }
 

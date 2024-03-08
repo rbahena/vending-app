@@ -1,0 +1,9 @@
+.edit-button{
+    cursor: pointer;
+    color: blue;
+}
+
+.delete-button{
+    cursor: pointer;
+    color: red;
+}
