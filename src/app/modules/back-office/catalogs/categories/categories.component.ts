@@ -79,20 +79,19 @@ export class CategoriesComponent {
       fk_suscriptor: this.idSuscriptor,
       nombre_categoria: this.formCreateCategory.value.nombreCategoria!,
     }
-    this.categoriesService.addCategory(this.addCategory).pipe(
-      finalize(() => {
+    this.categoriesService.addCategory(this.addCategory).subscribe({
+      next: () => {
         this.getAllCategories();
         this.crud_create = false;
         this.titleInterface = "Categorias"
         this.alertService.showAlert("La categoria se agrego de manera correcta");
         this.formCreateCategory.reset();
-      }),
-      catchError((error: HttpErrorResponse) => {
-        console.log(error.error.message);
+      },
+      error: error => {
         this.alertService.showAlert(error.error.message, "Error");
-        throw error;
-      }),
-    ).subscribe();
+      }
+
+    })
   }
 
   getDetailCategory(id_categoria: number) {
