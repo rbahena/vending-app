@@ -102,16 +102,13 @@ export class CategoriesComponent {
       fk_suscriptor: this.idSuscriptor,
       id_categoria: id_categoria,
     }
-    this.categoriesService.getDetalleCategoria(this.getDetalleCategoria).subscribe(
-      (response) => {
+    this.categoriesService.getDetalleCategoria(this.getDetalleCategoria).subscribe({
+      next: response => {
         this.detalleCategoria = response;
         this.formUpdateCategory.setValue({ nombreCategoria: this.detalleCategoria.nombre_categoria!, id_categoria: this.detalleCategoria.id_categoria })
       },
-      (error) => {
-        console.log(error);
-      }
-
-    );
+      error: error => { }
+    });
   }
 
   cancelarRegistroNueva() {
