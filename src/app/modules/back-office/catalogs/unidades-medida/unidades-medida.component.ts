@@ -15,7 +15,7 @@ export class UnidadesMedidaComponent {
   agregarUnidadDto: agregarUnidadMedidProductoDto = {};
   obtenerUnidadDto: obtenUnidadMedidProductoDto = {};
   actualizaUnidadDto: actualizaunidadMedidProductoDto = {};
-  titleUnidadInterface: String = 'Unidades de medida para productos';
+  titleUnidadInterface: String = 'Unidades de Medida';
   valorBoton: String = 'Agregar';
   activarFormularioUnidadMedida: boolean = false;
   id_suscriptor: number | undefined;
@@ -27,8 +27,8 @@ export class UnidadesMedidaComponent {
   }
 
   unidadMedidaFormulario = new FormGroup({
-    nombre_unidad: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    siglas_unidad: new FormControl('', [Validators.required, Validators.maxLength(10)]),
+    nombre_unidad: new FormControl('', [Validators.required]),
+    siglas_unidad: new FormControl('', [Validators.required]),
     id_unidad_medida: new FormControl()
   });
 
@@ -56,9 +56,9 @@ export class UnidadesMedidaComponent {
         next: response => {
           this.obtenerUnidades();
           this.activarFormularioUnidadMedida = false;
-          this.titleUnidadInterface = 'Unidades de medida para productos';
+          this.titleUnidadInterface = 'Unidades de Medida';
           this.unidadMedidaFormulario.reset();
-          this.alertService.showAlert('El envase se agrego con exito');
+          this.alertService.showAlert('El registro de agregó con exito');
         },
         error: (error: HttpErrorResponse) => { this.alertService.showAlert(error.error.message, 'error'); }
       })
@@ -78,7 +78,7 @@ export class UnidadesMedidaComponent {
     this.unidadService.actualizaUnidadMedida(actualizaEnvaseDto).subscribe({
       next: response => {
         this.obtenerUnidades();
-        this.alertService.showAlert('El registro se actualizo de manera correcta.');
+        this.alertService.showAlert('El registro se actualizó de manera correcta.');
         this.activarFormularioUnidadMedida = false;
         this.unidadMedidaFormulario.reset();
         this.titleUnidadInterface = '';
@@ -97,7 +97,7 @@ export class UnidadesMedidaComponent {
     this.unidadService.obtenerUnidad(this.obtenerUnidadDto).subscribe({
       next: response => {
         this.activarFormularioUnidadMedida = true;
-        this.titleUnidadInterface = 'Actualizar datos los datos';
+        this.titleUnidadInterface = 'Actualizar registro';
         this.unidadMedidaFormulario.setValue({ nombre_unidad: response.nombre_unidad, id_unidad_medida: response.id_unidad, siglas_unidad:response.siglas_unidad })
         this.valorBoton = 'Actualizar';
       },
@@ -115,7 +115,7 @@ export class UnidadesMedidaComponent {
     this.unidadService.eliminaUnidadMedida(this.actualizaUnidadDto).subscribe({
       next: ()=> {
         this.obtenerUnidades();
-        this.alertService.showAlert('La unidad de medida se actualizo de manera correcta.');
+        this.alertService.showAlert('El registro se actualizó de manera exitosa..');
       },
       error: (error: HttpErrorResponse) => {
         this.alertService.showAlert(error.error.message, 'error');
@@ -126,7 +126,7 @@ export class UnidadesMedidaComponent {
   mostrarFormularioUnidad() {
     this.unidadMedidaFormulario.reset();
     this.activarFormularioUnidadMedida = true;
-    this.titleUnidadInterface = "Agregar nueva unidad de medida"
+    this.titleUnidadInterface = "Agregar nuevo registro."
     this.valorBoton = 'Agregar'
   }
 

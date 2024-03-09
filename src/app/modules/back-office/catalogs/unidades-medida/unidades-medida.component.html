@@ -2,7 +2,7 @@
 <br>
 <section *ngIf="!activarFormularioUnidadMedida">
     <button type="button" class="btn btn-success" (click)="mostrarFormularioUnidad()">
-        Agregar nueva unidad de medida
+        Agregar nuevo
     </button>
     <br>
     <br>
@@ -11,7 +11,7 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Nombre</th>
-                <th scope="col">Siglas</th>
+                <th scope="col">Abreviación</th>
                 <th scope="col">Estatus</th>
                 <th scope="col">Fecha creación</th>
                 <th scope="col">Acciones</th>
@@ -47,7 +47,7 @@
         <div class="mb-3">
             <label for="abreviacion" class="form-label">Abreviación</label>
             <input type="text" name="abreviacion" formControlName="siglas_unidad" autocomplete="off"
-                class="form-control" id="abreviacion" placeholder="Ejemplo: Kilogramos">
+                class="form-control" id="abreviacion" placeholder="Ejemplo: kg">
             <div class="alert alert-danger mt-2" [hidden]="unidadMedidaFormulario.valid || unidadMedidaFormulario.pristine">
                 Este campo es obligatorio
             </div>
