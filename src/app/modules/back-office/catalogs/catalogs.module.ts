@@ -8,6 +8,7 @@ import { ChecarestatusPipe } from './pipes/checarestatus.pipe';
 import { ModalsComponent } from '../../shared/modals/modals.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EnvasesComponent } from './envases/envases.component';
+import { UnidadesMedidaComponent } from './unidades-medida/unidades-medida.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { EnvasesComponent } from './envases/envases.component';
     ChecarestatusPipe,
     CategoriesComponent,
     ModalsComponent,
-    EnvasesComponent
+    EnvasesComponent,
+    UnidadesMedidaComponent
   ],
   imports: [
     CommonModule,
