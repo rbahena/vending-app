@@ -1,1 +1,61 @@
-<p>unidades-medida works!</p>
+<h3>{{titleUnidadInterface}}</h3>
+<br>
+<section *ngIf="!activarFormularioUnidadMedida">
+    <button type="button" class="btn btn-success" (click)="mostrarFormularioUnidad()">
+        Agregar nueva unidad de medida
+    </button>
+    <br>
+    <br>
+    <table class="table .table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Siglas</th>
+                <th scope="col">Estatus</th>
+                <th scope="col">Fecha creación</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let unidad of unidadesMedida; index as i; first as isFirst">
+                <td>{{i + 1}}</td>
+                <td>{{ unidad.nombre_unidad }}</td>
+                <td>{{ unidad.siglas_unidad }}</td>
+                <td>{{ unidad.estatus | checarestatus }}</td>
+                <td>{{ unidad.fecha_alta | date:'dd/MM/yyyy' }}</td>
+                <td>
+                    <a (click)="obtenerDetalleUnidadMedida(unidad.id_unidad)" class="edit-button"><i class="fa-solid fa-pen-to-square"></i></a>
+                    &nbsp;&nbsp;
+                    <a (click)="eliminaUnidadMedida(unidad.id_unidad)" class="delete-button"><i class="fa-solid fa-trash"></i></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<ng-container *ngIf="activarFormularioUnidadMedida">
+    <form [formGroup]="unidadMedidaFormulario" (ngSubmit)="crearActualizarUnidadMedida()">
+        <div class="mb-3">
+            <label for="nombreUnidad" class="form-label">Nombre Unidad</label>
+            <input type="text" name="nombreUnidad" formControlName="nombre_unidad" autocomplete="off"
+                class="form-control" id="nombreUnidad" placeholder="Ejemplo: Kilogramos">
+            <div class="alert alert-danger mt-2" [hidden]="unidadMedidaFormulario.valid || unidadMedidaFormulario.pristine">
+                Este campo es obligatorio
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="abreviacion" class="form-label">Abreviación</label>
+            <input type="text" name="abreviacion" formControlName="siglas_unidad" autocomplete="off"
+                class="form-control" id="abreviacion" placeholder="Ejemplo: Kilogramos">
+            <div class="alert alert-danger mt-2" [hidden]="unidadMedidaFormulario.valid || unidadMedidaFormulario.pristine">
+                Este campo es obligatorio
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="ocultarFormularioUnidad()">Cancelar</button>
+            &nbsp;
+            <button type="submit" class="btn btn-primary" [disabled]="unidadMedidaFormulario.invalid">{{valorBoton}}</button>
+        </div>
+    </form>
+</ng-container>
