@@ -11,7 +11,7 @@ export interface unidadMedidProductoDto {
 export interface agregarUnidadMedidProductoDto {
     fk_suscriptor?: number;
     nombre_unidad?: string;
-    siglas_unidad: string;
+    siglas_unidad?: string;
 }
 
 export interface obtenUnidadMedidProductoDto {
