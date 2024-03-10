@@ -1,1 +1,51 @@
-<p>presentaciones-producto works!</p>
+<h3>{{tituloPresentacionesProducto}}</h3>
+<br>
+<section *ngIf="!activarFormularioPresentaciones">
+    <button type="button" class="btn btn-success" (click)="mostrarFormularioPresentacion()">
+        Agregar nueva
+    </button>
+    <br>
+    <br>
+    <table class="table .table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Estatus</th>
+                <th scope="col">Fecha creación</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let presentacion of presentaciones; index as i; first as isFirst">
+                <td>{{i + 1}}</td>
+                <td>{{ presentacion.nombre_presentacion }}</td>
+                <td>{{ presentacion.estatus | checarestatus }}</td>
+                <td>{{ presentacion.fecha_alta | date:'dd/MM/yyyy' }}</td>
+                <td>
+                    <a (click)="obtenerDetallePresentacion(presentacion.id_presentacion)" class="edit-button"><i class="fa-solid fa-pen-to-square"></i></a>
+                    &nbsp;&nbsp;
+                    <a (click)="eliminaPresentacion(presentacion.id_presentacion)" class="delete-button"><i class="fa-solid fa-trash"></i></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<ng-container *ngIf="activarFormularioPresentaciones">
+    <form [formGroup]="presentacionFormulario" (ngSubmit)="crearActualizarPresentacion()">
+        <div class="mb-3">
+            <label for="nombrePresentacion" class="form-label">Nombre Unidad</label>
+            <input type="text" name="nombrePresentacion" formControlName="nombre_presentacion" autocomplete="off"
+                class="form-control" id="nombrePresentacion" placeholder="Ejemplo: Clásica">
+            <div class="alert alert-danger mt-2" [hidden]="presentacionFormulario.valid || presentacionFormulario.pristine">
+                Este campo es obligatorio
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="ocultarFormularioPresentacion()">Cancelar</button>
+            &nbsp;
+            <button type="submit" class="btn btn-primary" [disabled]="presentacionFormulario.invalid">{{botonAcciones}}</button>
+        </div>
+    </form>
+</ng-container>
