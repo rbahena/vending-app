@@ -9,6 +9,7 @@ import { ModalsComponent } from '../../shared/modals/modals.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EnvasesComponent } from './envases/envases.component';
 import { UnidadesMedidaComponent } from './unidades-medida/unidades-medida.component';
+import { PresentacionesProductoComponent } from './presentaciones-producto/presentaciones-producto.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { UnidadesMedidaComponent } from './unidades-medida/unidades-medida.compo
     CategoriesComponent,
     ModalsComponent,
     EnvasesComponent,
-    UnidadesMedidaComponent
+    UnidadesMedidaComponent,
+    PresentacionesProductoComponent
   ],
   imports: [
     CommonModule,
