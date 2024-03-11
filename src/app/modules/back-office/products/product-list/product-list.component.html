@@ -46,24 +46,6 @@
 </section>
 
 <ng-container *ngIf="activarFormularioProducto">
-    <!-- <form [formGroup]="productoFormulario" (ngSubmit)="crearActualizarProducto()">
-        <div class="mb-3">
-            <label for="nombre_producto" class="form-label">Nombre Producto</label>
-            <input type="text" name="nombre_producto" formControlName="nombre_producto" autocomplete="off"
-                class="form-control" id="nombre_producto" placeholder="Ejemplo: Coca cola">
-            <div class="alert alert-danger mt-2" [hidden]="productoFormulario.valid || productoFormulario.pristine">
-                Este campo es obligatorio
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="ocultarFormularioProducto()">Cancelar</button>
-            &nbsp;
-            <button type="submit" class="btn btn-primary"
-                [disabled]="productoFormulario.invalid">{{botonAcciones}}</button>
-        </div>
-    </form> -->
-
-
     <form class="row g-3" [formGroup]="productoFormulario" (ngSubmit)="crearActualizarProducto()">
         <div class="col-md-6">
             <label for="nombre_producto" class="form-label">Nombre Producto</label>
@@ -87,8 +69,14 @@
         </div>
         <div class="col-md-6">
             <label for="fk_categoria" class="form-label">Categoria</label>
-            <input type="text" name="fk_categoria" formControlName="fk_categoria" autocomplete="off"
-                class="form-control" id="fk_categoria" placeholder="Ej. Bebidas">
+            <select formControlName="fk_categoria" class="form-control">
+                <option [ngValue]="null" disabled>Elige una categoria</option>
+                <option *ngFor="let prf of categorias" [ngValue]="prf.id_categoria">
+                 {{ prf.nombre_categoria }}
+                </option>
+              </select> 
+            <!-- <input type="text" name="fk_categoria" formControlName="fk_categoria" autocomplete="off"
+                class="form-control" id="fk_categoria" placeholder="Ej. Bebidas"> -->
         </div>
 
 
@@ -112,8 +100,8 @@
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" (click)="ocultarFormularioProducto()">Cancelar</button>
             &nbsp;
-            <button type="submit" class="btn btn-primary"
-                [disabled]="productoFormulario.invalid">{{botonAcciones}}</button>
+            <button type="submit" class="btn btn-primary">{{botonAcciones}}</button>
+                <!-- [disabled]="productoFormulario.invalid">{{botonAcciones}}</button> -->
         </div>
     </form>
 </ng-container>

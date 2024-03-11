@@ -4,6 +4,8 @@ import { ProductListService } from './product-list.service';
 import { AlertService } from 'src/app/modules/shared/alert/alert.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
+import { category } from '../../catalogs/categories/models/category.interface';
+import { CategoriesService } from '../../catalogs/categories/categories.service';
 const SUSCRIPTOR_LOCAL_STORAGE_KEY_VENDING = 'suscriptorData';
 
 @Component({
@@ -20,8 +22,11 @@ export class ProductListComponent {
   activarFormularioProducto: boolean = false;
   id_suscriptor: number | undefined;
   productos: productoDto[] = [];
+  categorias: category[] = [];
 
-  constructor(private productoService: ProductListService, private alertService: AlertService) { }
+  constructor(private productoService: ProductListService, 
+    private categoriesService: CategoriesService,
+    private alertService: AlertService) { }
   ngOnInit(): void {
     this.obtenerProductos();
   }
@@ -52,6 +57,7 @@ export class ProductListComponent {
   }
 
   crearActualizarProducto() {
+    console.log(this.productoFormulario.value.fk_categoria)
     if (this.productoFormulario.invalid) return;
     if (this.productoFormulario.value.id_producto == null) {
       this.agregarProductoDto = {
@@ -109,6 +115,7 @@ export class ProductListComponent {
   }
 
   obtenerDetalleProducto(id_producto: number) {
+    this.obtenerCategorias();
     this.obtenerProductoDto = {
       fk_suscriptor: this.recuperaIdSuscriptorLocalStorage(),
       id_producto: id_producto
@@ -154,11 +161,23 @@ export class ProductListComponent {
     })
   }
 
+
+  obtenerCategorias(): void {
+    let id_suscriptor: number = this.recuperaIdSuscriptorLocalStorage();
+    this.categoriesService.getAllCategories(id_suscriptor).subscribe(
+      (response => {
+        this.categorias = response
+      }),
+      (error => { })
+    );
+  }
+
   mostrarFormularioProducto() {
     this.productoFormulario.reset();
     this.activarFormularioProducto = true;
-    this.tituloProductoInterface= "Agregar nuevo producto."
+    this.tituloProductoInterface = "Agregar nuevo producto."
     this.botonAcciones = 'Agregar'
+    this.obtenerCategorias();
   }
 
   ocultarFormularioProducto() {
