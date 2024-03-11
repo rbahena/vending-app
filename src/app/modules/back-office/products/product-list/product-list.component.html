@@ -43,20 +43,20 @@
     </table>
 </section>
 
-<!-- <ng-container *ngIf="activarFormularioProducto">
-    <form [formGroup]="presentacionFormulario" (ngSubmit)="crearActualizarProducto()">
+ <ng-container *ngIf="activarFormularioProducto">
+    <form [formGroup]="productoFormulario" (ngSubmit)="crearActualizarProducto()">
         <div class="mb-3">
-            <label for="nombrePresentacion" class="form-label">Nombre Unidad</label>
-            <input type="text" name="nombrePresentacion" formControlName="nombre_presentacion" autocomplete="off"
-                class="form-control" id="nombrePresentacion" placeholder="Ejemplo: Clásica">
-            <div class="alert alert-danger mt-2" [hidden]="presentacionFormulario.valid || presentacionFormulario.pristine">
+            <label for="nombre_producto" class="form-label">Nombre Producto</label>
+            <input type="text" name="nombre_producto" formControlName="nombre_producto" autocomplete="off"
+                class="form-control" id="nombre_producto" placeholder="Ejemplo: Coca cola">
+            <div class="alert alert-danger mt-2" [hidden]="productoFormulario.valid || productoFormulario.pristine">
                 Este campo es obligatorio
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="ocultarFormularioPresentacion()">Cancelar</button>
+            <button type="button" class="btn btn-secondary" (click)="ocultarFormularioProducto()">Cancelar</button>
             &nbsp;
-            <button type="submit" class="btn btn-primary" [disabled]="presentacionFormulario.invalid">{{botonAcciones}}</button>
+            <button type="submit" class="btn btn-primary" [disabled]="productoFormulario.invalid">{{botonAcciones}}</button>
         </div>
     </form>
-</ng-container> -->
+</ng-container> 

@@ -115,6 +115,7 @@ export class ProductListComponent {
     }
     this.productoService.obtenerProducto(this.obtenerProductoDto).subscribe({
       next: response => {
+        console.log("response: ", response);
         this.activarFormularioProducto = true;
         this.tituloProductoInterface = 'Actualizar producto';
         this.productoFormulario.setValue({
