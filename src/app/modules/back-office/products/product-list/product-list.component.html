@@ -1,67 +1,62 @@
-<!-- Search form -->
-<input class="form-control" type="text" placeholder="Bucar producto" aria-label="Search">
+<h3>{{tituloProductoInterface}}</h3>
 <br>
-<div class="row-cols-1">
+<section *ngIf="!activarFormularioProducto">
+    <button type="button" class="btn btn-success" (click)="mostrarFormularioProducto()">
+        Agregar producto
+    </button>
+    <br>
+    <br>
+    <table class="table .table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre producto</th>
+                <th scope="col">Codigo producto</th>
+                <th scope="col">contenido neto</th>
+                <th scope="col">Categoria</th>
+                <th scope="col">Envase</th>
+                <th scope="col">Unidad de medida</th>
+                <th scope="col">Presentacion</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let producto of productos; index as i; first as isFirst">
+                <td>{{i + 1}}</td>
+                <td>{{ producto.nombre_producto }}</td>
+                <td>{{ producto.codigo_producto }}</td>
+                <td>{{ producto.url_imagen }}</td>
+                <td>{{ producto.contenido_neto }}</td>
+                <td>{{ producto.fk_categoria }}</td>
+                <td>{{ producto.fk_envase }}</td>
+                <td>{{ producto.fk_unidad_medida }}</td>
+                <td>{{ producto.fk_presentacion }}</td>
+                <td>{{ producto.estatus }}</td>
+                <td>{{ producto.fecha_alta | date:'dd/MM/yyyy' }}</td>
+                <td>
+                    <a (click)="obtenerDetalleProducto(producto.id_producto)" class="edit-button"><i class="fa-solid fa-pen-to-square"></i></a>
+                    &nbsp;&nbsp;
+                    <a (click)="eliminaProducto(producto.id_producto)" class="delete-button"><i class="fa-solid fa-trash"></i></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
 
-    <select class="form-select" aria-label="Default select example">
-        <option selected>Filtrar por categoria</option>
-        <option value="1">Bebidas</option>
-        <option value="2">Frituras</option>
-        <option value="3">Dulces</option>
-      </select>
-</div>
-<br>
-<div class="row row-cols-1 row-cols-md-4 g-4">
-    <div class="col">
-      <div class="card h-100">
-        <img src="https://i5.walmartimages.com.mx/gr/images/product-images/img_large/00000007500761L2.jpg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title text-center">Coca Cola Pet Clásica <br> 600ml</h5>
-          <hr>
-          <table class="table table-sm text-center">
-            <tbody style="border: 0; border-bottom:1px solid #ffff">
-              <tr>
-                <td><strong>Femsa</strong></td>
-                <td>$15.67</td>
-              </tr>
-              <tr>
-                <td>Walmart</td>
-                <td>$15.40</td>
-              </tr>
-              <tr>
-                <td>Sam's club</td>
-                <td>$15.39</td>
-              </tr>
-            </tbody>
-          </table>
+<!-- <ng-container *ngIf="activarFormularioProducto">
+    <form [formGroup]="presentacionFormulario" (ngSubmit)="crearActualizarProducto()">
+        <div class="mb-3">
+            <label for="nombrePresentacion" class="form-label">Nombre Unidad</label>
+            <input type="text" name="nombrePresentacion" formControlName="nombre_presentacion" autocomplete="off"
+                class="form-control" id="nombrePresentacion" placeholder="Ejemplo: Clásica">
+            <div class="alert alert-danger mt-2" [hidden]="presentacionFormulario.valid || presentacionFormulario.pristine">
+                Este campo es obligatorio
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card h-100">
-        <img src="https://i5.walmartimages.com.mx/gr/images/product-images/img_large/00000007500761L2.jpg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a short card.</p>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="ocultarFormularioPresentacion()">Cancelar</button>
+            &nbsp;
+            <button type="submit" class="btn btn-primary" [disabled]="presentacionFormulario.invalid">{{botonAcciones}}</button>
         </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card h-100">
-        <img src="https://i5.walmartimages.com.mx/gr/images/product-images/img_large/00000007500761L2.jpg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card h-100">
-        <img src="https://i5.walmartimages.com.mx/gr/images/product-images/img_large/00000007500761L2.jpg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        </div>
-      </div>
-    </div>
-  </div>
+    </form>
+</ng-container> -->

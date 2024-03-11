@@ -153,6 +153,19 @@ export class ProductListComponent {
     })
   }
 
+  mostrarFormularioProducto() {
+    this.productoFormulario.reset();
+    this.activarFormularioProducto = true;
+    this.tituloProductoInterface= "Agregar nuevo producto."
+    this.botonAcciones = 'Agregar'
+  }
+
+  ocultarFormularioProducto() {
+    this.activarFormularioProducto = false;
+    this.tituloProductoInterface = "Productos"
+    this.productoFormulario.reset();
+  }
+
   private recuperaIdSuscriptorLocalStorage(): number {
     const idSuscr = localStorage.getItem(SUSCRIPTOR_LOCAL_STORAGE_KEY_VENDING);
     return Number(idSuscr);
