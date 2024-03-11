@@ -71,8 +71,8 @@
             <label for="fk_categoria" class="form-label">Categoria</label>
             <select formControlName="fk_categoria" class="form-control">
                 <option [ngValue]="null" disabled>Elige una categoria</option>
-                <option *ngFor="let prf of categorias" [ngValue]="prf.id_categoria">
-                 {{ prf.nombre_categoria }}
+                <option *ngFor="let categoria of categorias" [ngValue]="categoria.id_categoria">
+                 {{ categoria.nombre_categoria }}
                 </option>
               </select> 
             <!-- <input type="text" name="fk_categoria" formControlName="fk_categoria" autocomplete="off"
@@ -84,18 +84,30 @@
 
         <div class="col-md-6">
             <label for="fk_envase" class="form-label">Envase</label>
-            <input type="text" name="fk_envase" formControlName="fk_envase" autocomplete="off"
-                class="form-control" id="fk_envase" placeholder="Ej. Pet">
+            <select formControlName="fk_envase" class="form-control">
+                <option [ngValue]="null" disabled>Elige una categoria</option>
+                <option *ngFor="let envase of envases" [ngValue]="envase.id_envase">
+                 {{ envase.nombre_envase }}
+                </option>
+              </select> 
         </div>
         <div class="col-md-6">
             <label for="fk_unidad_medida" class="form-label">Unidad de medida</label>
-            <input type="text" name="fk_unidad_medida" formControlName="fk_unidad_medida" autocomplete="off"
-                class="form-control" id="fk_unidad_medida" placeholder="Ej. ml">
+            <select formControlName="fk_unidad_medida" class="form-control">
+                <option [ngValue]="null" disabled>Elige una opción</option>
+                <option *ngFor="let unidad of unidadesMedida" [ngValue]="unidad.id_unidad">
+                 {{ unidad.nombre_unidad }}
+                </option>
+              </select> 
         </div>
         <div class="col-md-6">
             <label for="fk_presentacion" class="form-label">Presentacion</label>
-            <input type="text" name="fk_presentacion" formControlName="fk_presentacion" autocomplete="off"
-                class="form-control" id="fk_presentacion" placeholder="Ej. Clásica">
+            <select formControlName="fk_presentacion" class="form-control">
+                <option [ngValue]="null" disabled>Elige una opción</option>
+                <option *ngFor="let presentacion of presentaciones" [ngValue]="presentacion.id_presentacion">
+                 {{ presentacion.nombre_presentacion }}
+                </option>
+              </select> 
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" (click)="ocultarFormularioProducto()">Cancelar</button>

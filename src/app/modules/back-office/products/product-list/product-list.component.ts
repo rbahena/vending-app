@@ -6,6 +6,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { category } from '../../catalogs/categories/models/category.interface';
 import { CategoriesService } from '../../catalogs/categories/categories.service';
+import { PresentacionesProductoService } from '../../catalogs/presentaciones-producto/presentaciones-producto.service';
+import { presentacionProductoDto } from '../../catalogs/presentaciones-producto/models/presentacion.producto.interface';
+import { unidadMedidProductoDto } from '../../catalogs/unidades-medida/models/unidad.producto.interface';
+import { UnidadesMedidaService } from '../../catalogs/unidades-medida/unidades-medida.service';
+import { envaseDto } from '../../catalogs/envases/models/envase.interface';
+import { EnvasesService } from '../../catalogs/envases/envases.service';
 const SUSCRIPTOR_LOCAL_STORAGE_KEY_VENDING = 'suscriptorData';
 
 @Component({
@@ -23,9 +29,15 @@ export class ProductListComponent {
   id_suscriptor: number | undefined;
   productos: productoDto[] = [];
   categorias: category[] = [];
+  presentaciones: presentacionProductoDto[] = [];
+  unidadesMedida: unidadMedidProductoDto[] = [];
+  envases: envaseDto[] = [];
 
-  constructor(private productoService: ProductListService, 
+  constructor(private productoService: ProductListService,
     private categoriesService: CategoriesService,
+    private presentacionesService: PresentacionesProductoService,
+    private unidadService: UnidadesMedidaService,
+    private envaseService: EnvasesService,
     private alertService: AlertService) { }
   ngOnInit(): void {
     this.obtenerProductos();
@@ -115,7 +127,11 @@ export class ProductListComponent {
   }
 
   obtenerDetalleProducto(id_producto: number) {
+
     this.obtenerCategorias();
+    this.obtenerEnvases();
+    this.obtenerPresentaciones();
+    this.obtenerUnidades();
     this.obtenerProductoDto = {
       fk_suscriptor: this.recuperaIdSuscriptorLocalStorage(),
       id_producto: id_producto
@@ -172,12 +188,52 @@ export class ProductListComponent {
     );
   }
 
+  async obtenerPresentaciones() {
+    this.id_suscriptor = this.recuperaIdSuscriptorLocalStorage();
+    this.presentacionesService.obtenerPresentaciones(this.id_suscriptor).subscribe({
+      next: response => {
+        this.presentaciones = response;
+      },
+      error: (error: HttpErrorResponse) => {
+        this.alertService.showAlert(error.error.message, 'error');
+      }
+    });
+  }
+  async obtenerUnidades() {
+    this.id_suscriptor = this.recuperaIdSuscriptorLocalStorage();
+    this.unidadService.obtenerUnidades(this.id_suscriptor).subscribe({
+      next: response => {
+        this.unidadesMedida = response;
+      },
+      error: (error: HttpErrorResponse) => {
+        this.alertService.showAlert(error.error.message, 'error');
+      }
+    });
+  }
+
+  async obtenerEnvases() {
+    this.id_suscriptor = this.recuperaIdSuscriptorLocalStorage();
+    this.envaseService.obtenerEnvases(this.id_suscriptor).subscribe({
+      next: response => {
+        this.envases = response;
+        console.log("this.envases: ", this.envases);
+      },
+      error: (error: HttpErrorResponse) => {
+        this.alertService.showAlert(error.error.message, 'error');
+      }
+    });
+  }
+
   mostrarFormularioProducto() {
+    this.obtenerCategorias();
+    this.obtenerEnvases();
+    this.obtenerPresentaciones();
+    this.obtenerUnidades();
     this.productoFormulario.reset();
     this.activarFormularioProducto = true;
     this.tituloProductoInterface = "Agregar nuevo producto."
     this.botonAcciones = 'Agregar'
-    this.obtenerCategorias();
+
   }
 
   ocultarFormularioProducto() {
