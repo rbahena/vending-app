@@ -59,8 +59,8 @@
         </div>
         <div class="col-md-6">
             <label for="url_imagen" class="form-label">Url imagen</label>
-            <input type="text" name="url_imagen" formControlName="url_imagen" autocomplete="off"
-                class="form-control" id="url_imagen" placeholder="Ej. imagenes/coca.png">
+            <input type="text" name="url_imagen" formControlName="url_imagen" autocomplete="off" class="form-control"
+                id="url_imagen" placeholder="Ej. imagenes/coca.png">
         </div>
         <div class="col-md-6">
             <label for="contenido_neto" class="form-label">Contenido net</label>
@@ -72,48 +72,57 @@
             <select formControlName="fk_categoria" class="form-control">
                 <option [ngValue]="null" disabled>Elige una categoria</option>
                 <option *ngFor="let categoria of categorias" [ngValue]="categoria.id_categoria">
-                 {{ categoria.nombre_categoria }}
+                    {{ categoria.nombre_categoria }}
                 </option>
-              </select> 
+            </select>
             <!-- <input type="text" name="fk_categoria" formControlName="fk_categoria" autocomplete="off"
                 class="form-control" id="fk_categoria" placeholder="Ej. Bebidas"> -->
         </div>
 
 
-        
+
 
         <div class="col-md-6">
             <label for="fk_envase" class="form-label">Envase</label>
             <select formControlName="fk_envase" class="form-control">
-                <option [ngValue]="null" disabled>Elige una categoria</option>
+                <option [ngValue]="null" disabled>Elige un envase</option>
                 <option *ngFor="let envase of envases" [ngValue]="envase.id_envase">
-                 {{ envase.nombre_envase }}
+                    {{ envase.nombre_envase }}
                 </option>
-              </select> 
+            </select>
         </div>
         <div class="col-md-6">
             <label for="fk_unidad_medida" class="form-label">Unidad de medida</label>
             <select formControlName="fk_unidad_medida" class="form-control">
                 <option [ngValue]="null" disabled>Elige una opción</option>
                 <option *ngFor="let unidad of unidadesMedida" [ngValue]="unidad.id_unidad">
-                 {{ unidad.nombre_unidad }}
+                    {{ unidad.nombre_unidad }}
                 </option>
-              </select> 
+            </select>
         </div>
         <div class="col-md-6">
             <label for="fk_presentacion" class="form-label">Presentacion</label>
             <select formControlName="fk_presentacion" class="form-control">
                 <option [ngValue]="null" disabled>Elige una opción</option>
                 <option *ngFor="let presentacion of presentaciones" [ngValue]="presentacion.id_presentacion">
-                 {{ presentacion.nombre_presentacion }}
+                    {{ presentacion.nombre_presentacion }}
                 </option>
-              </select> 
+            </select>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" (click)="ocultarFormularioProducto()">Cancelar</button>
             &nbsp;
             <button type="submit" class="btn btn-primary">{{botonAcciones}}</button>
-                <!-- [disabled]="productoFormulario.invalid">{{botonAcciones}}</button> -->
+            <!-- [disabled]="productoFormulario.invalid">{{botonAcciones}}</button> -->
         </div>
+
+
     </form>
+    <p *ngIf="productoFormulario.value.nombre_producto">Se guardara el siguiente producto: <span class="etiqueta">
+        {{productoFormulario.value.nombre_producto | lowercase }}
+        {{obtenerNombreEnvase(productoFormulario.value.fk_envase!) | lowercase}}     
+        {{obtenerNombrePresentacion(productoFormulario.value.fk_presentacion!) | lowercase}}
+        <span *ngIf="productoFormulario.value.fk_unidad_medida"> de
+         {{productoFormulario.value.contenido_neto}}{{obtenerUnidadMedida(productoFormulario.value.fk_unidad_medida!) | lowercase}}</span>
+        </span></p>
 </ng-container>

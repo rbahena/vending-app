@@ -18,6 +18,8 @@ const SUSCRIPTOR_LOCAL_STORAGE_KEY_VENDING = 'suscriptorData';
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
+
+  
 })
 export class ProductListComponent {
   agregarProductoDto: agregarProductoDto = {};
@@ -69,6 +71,10 @@ export class ProductListComponent {
   }
 
   crearActualizarProducto() {
+    this.obtenerCategorias();
+    this.obtenerEnvases();
+    this.obtenerPresentaciones();
+    this.obtenerUnidades();
     console.log(this.productoFormulario.value.fk_categoria)
     if (this.productoFormulario.invalid) return;
     if (this.productoFormulario.value.id_producto == null) {
@@ -240,6 +246,21 @@ export class ProductListComponent {
     this.activarFormularioProducto = false;
     this.tituloProductoInterface = "Productos"
     this.productoFormulario.reset();
+  }
+
+  obtenerNombreEnvase(id_envase:number): string {
+    const envaseEncontrado = this.envases.find(envase => envase.id_envase === id_envase);
+    return envaseEncontrado ? envaseEncontrado.nombre_envase : '';
+  }
+
+  obtenerNombrePresentacion(id_presentacion:number): string {
+    const presentacionEncontrada = this.presentaciones.find(presentacion => presentacion.id_presentacion === id_presentacion);
+    return presentacionEncontrada ? presentacionEncontrada.nombre_presentacion : '';
+  }
+
+  obtenerUnidadMedida(id_unidad:number): string {
+    const unidadEncontrada = this.unidadesMedida.find(unidad => unidad.id_unidad === id_unidad);
+    return unidadEncontrada ? unidadEncontrada.siglas_unidad : '';
   }
 
   private recuperaIdSuscriptorLocalStorage(): number {
