@@ -11,12 +11,15 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Nombre producto</th>
-                <th scope="col">Codigo producto</th>
-                <th scope="col">contenido neto</th>
-                <th scope="col">Categoria</th>
                 <th scope="col">Envase</th>
-                <th scope="col">Unidad de medida</th>
                 <th scope="col">Presentacion</th>
+                <th scope="col">contenido neto</th>
+                <th scope="col">Unidad de medida</th>
+                <th scope="col">Categoria</th>
+                <th scope="col">Codigo producto</th>
+                <!-- <th scope="col">Imagen</th> -->
+                <th scope="col">Estatus</th>
+                <th scope="col">Fecha Alta</th>
                 <th scope="col">Acciones</th>
             </tr>
         </thead>
@@ -24,13 +27,13 @@
             <tr *ngFor="let producto of productos; index as i; first as isFirst">
                 <td>{{i + 1}}</td>
                 <td>{{ producto.nombre_producto }}</td>
-                <td>{{ producto.codigo_producto }}</td>
-                <td>{{ producto.url_imagen }}</td>
+                <td>{{ obtenerNombreEnvase(producto.fk_envase!) }}</td>
+                <td>{{ obtenerNombrePresentacion(producto.fk_presentacion!) }}</td>
                 <td>{{ producto.contenido_neto }}</td>
-                <td>{{ producto.fk_categoria }}</td>
-                <td>{{ producto.fk_envase }}</td>
-                <td>{{ producto.fk_unidad_medida }}</td>
-                <td>{{ producto.fk_presentacion }}</td>
+                <td>{{ obtenerUnidadMedidaCompleto(producto.fk_unidad_medida!) }}</td>
+                <td>{{ obtenerNombreCategoria(producto.fk_categoria!) }}</td>
+                <td>{{ producto.codigo_producto }}</td>
+                <!-- <td>{{ producto.url_imagen }}</td> -->
                 <td>{{ producto.estatus }}</td>
                 <td>{{ producto.fecha_alta | date:'dd/MM/yyyy' }}</td>
                 <td>

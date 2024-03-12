@@ -43,6 +43,10 @@ export class ProductListComponent {
     private alertService: AlertService) { }
   ngOnInit(): void {
     this.obtenerProductos();
+    this.obtenerCategorias();
+    this.obtenerEnvases();
+    this.obtenerPresentaciones();
+    this.obtenerUnidades();
   }
 
   productoFormulario = new FormGroup({
@@ -71,12 +75,7 @@ export class ProductListComponent {
   }
 
   crearActualizarProducto() {
-    this.obtenerCategorias();
-    this.obtenerEnvases();
-    this.obtenerPresentaciones();
-    this.obtenerUnidades();
-    console.log(this.productoFormulario.value.fk_categoria)
-    if (this.productoFormulario.invalid) return;
+    //if (this.productoFormulario.invalid) return;
     if (this.productoFormulario.value.id_producto == null) {
       this.agregarProductoDto = {
         fk_suscriptor: this.recuperaIdSuscriptorLocalStorage(),
@@ -89,6 +88,7 @@ export class ProductListComponent {
         fk_unidad_medida: this.productoFormulario.value.fk_unidad_medida!,
         fk_presentacion: this.productoFormulario.value.fk_presentacion!,
       }
+      console.log("Formulario para agregar producto: ", this.agregarProductoDto);
       this.productoService.crearProducto(this.agregarProductoDto).subscribe({
         next: response => {
           this.obtenerProductos();
@@ -133,18 +133,12 @@ export class ProductListComponent {
   }
 
   obtenerDetalleProducto(id_producto: number) {
-
-    this.obtenerCategorias();
-    this.obtenerEnvases();
-    this.obtenerPresentaciones();
-    this.obtenerUnidades();
     this.obtenerProductoDto = {
       fk_suscriptor: this.recuperaIdSuscriptorLocalStorage(),
       id_producto: id_producto
     }
     this.productoService.obtenerProducto(this.obtenerProductoDto).subscribe({
       next: response => {
-        console.log("response: ", response);
         this.activarFormularioProducto = true;
         this.tituloProductoInterface = 'Actualizar producto';
         this.productoFormulario.setValue({
@@ -231,10 +225,6 @@ export class ProductListComponent {
   }
 
   mostrarFormularioProducto() {
-    this.obtenerCategorias();
-    this.obtenerEnvases();
-    this.obtenerPresentaciones();
-    this.obtenerUnidades();
     this.productoFormulario.reset();
     this.activarFormularioProducto = true;
     this.tituloProductoInterface = "Agregar nuevo producto."
@@ -261,6 +251,16 @@ export class ProductListComponent {
   obtenerUnidadMedida(id_unidad:number): string {
     const unidadEncontrada = this.unidadesMedida.find(unidad => unidad.id_unidad === id_unidad);
     return unidadEncontrada ? unidadEncontrada.siglas_unidad : '';
+  }
+
+  obtenerUnidadMedidaCompleto(id_unidad:number): string {
+    const unidadEncontrada = this.unidadesMedida.find(unidad => unidad.id_unidad === id_unidad);
+    return unidadEncontrada ? unidadEncontrada.nombre_unidad : '';
+  }
+
+  obtenerNombreCategoria(id_categoria:number): string {
+    const categorias = this.categorias.find(categoria => categoria.id_categoria === id_categoria);
+    return categorias ? categorias.nombre_categoria : '';
   }
 
   private recuperaIdSuscriptorLocalStorage(): number {
