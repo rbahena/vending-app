@@ -1,28 +1,34 @@
 <div>
-    <h3>Crear cuenta</h3>    
-    <hr>
-    <br>
-    <form [formGroup]="formRegister" (ngSubmit)="register()">
-      <label for="name">Nombre (s) </label>
-      <input type="name" name="name" formControlName="nombre" placeholder="Pedro"/>
+  <h3>Crear cuenta</h3>
+  <hr>
+  <br>
+  <form [formGroup]="formRegister" (ngSubmit)="register()">
+    <label for="name">Nombre (s) * </label>
+    <input type="name" name="name" formControlName="nombre" placeholder="Pedro" />
+    <div class="alert alert-danger mt-2" [hidden]="formRegister.valid || formRegister.pristine">
+      Este campo es obligatorio
+    </div>
 
-      <label for="email"> Correo electrónico </label>
-      <input type="text" name="email" formControlName="correo_electronico" autocomplete="off" placeholder="micorreo@gmail.com"/>
-      
-      <label for="password">Contraseña </label>
-      <input type="password" name="password" formControlName="contrasena" placeholder="********"/>
-      
+    <label for="email"> Correo electrónico * </label>
+    <input type="text" name="email" formControlName="correo_electronico" autocomplete="off"
+      placeholder="micorreo@gmail.com" />
+    <div class="alert alert-danger mt-2" [hidden]="formRegister.valid || formRegister.pristine">
+      Este campo es obligatorio
+    </div>
 
-      <label for="telefono">Telefono </label>
-      <input type="number" name="telefono" formControlName="telefono" placeholder="5512659845"/>
+    <label for="password">Contraseña * </label>
+    <input type="password" name="password" formControlName="contrasena" placeholder="********" />
+    <div class="alert alert-danger mt-2" [hidden]="formRegister.valid || formRegister.pristine">
+      Este campo es obligatorio
+    </div>
 
-      <button type="submit">
-        Registrarme
-      </button>
-    </form>
-    <hr>
-    <br>
-    <label>¿Ya tienes cuenta?, inicia sesión <a [routerLink]="['/auth/login']"> aquí</a></label>
-    <br>
-    <label><a [routerLink]="['/']" style="text-decoration: none;">Volver a la pagina principal</a></label>
-  </div>
+    <button type="submit" [disabled]="formRegister.invalid">
+      Registrarme
+    </button>
+  </form>
+  <hr>
+  <br>
+  <label>¿Ya tienes cuenta?, inicia sesión <a [routerLink]="['/auth/login']"> aquí</a></label>
+  <br>
+  <label><a [routerLink]="['/']" style="text-decoration: none;">Volver a la pagina principal</a></label>
+</div>

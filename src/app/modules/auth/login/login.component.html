@@ -3,11 +3,17 @@
     <hr>
     <br>
     <form [formGroup]="formLogin" (ngSubmit)="login()">
-      <label for="email"> Correo electrónico </label>
+      <label for="email"> Correo electrónico * </label>
       <input type="text" name="email" formControlName="correo_electronico" autocomplete="off" placeholder="micorreo@gmail.com" required/>
-      <label for="password">Contraseña </label>
+      <div class="alert alert-danger mt-2" [hidden]="formLogin.valid || formLogin.pristine">
+        Este campo es obligatorio
+    </div>
+      <label for="password">Contraseña * </label>
       <input type="password" name="password" formControlName="contrasena" placeholder="*********" required/>
-      <button type="submit">
+      <div class="alert alert-danger mt-2" [hidden]="formLogin.valid || formLogin.pristine">
+        Este campo es obligatorio
+    </div>
+      <button type="submit" [disabled]="formLogin.invalid">
         Iniciar Sesión
       </button>
     </form>

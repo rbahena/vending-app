@@ -28,7 +28,7 @@ export class RegisterComponent {
       nonNullable: true,
     }),
     telefono: new FormControl('', {
-      validators: [Validators.required],
+      validators: [],
       nonNullable: true,
     }),
   });
