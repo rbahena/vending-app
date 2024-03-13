@@ -6,7 +6,7 @@
     </button>
     <br>
     <br>
-    <table class="table .table-striped">
+    <!-- <table class="table .table-striped">
         <thead>
             <tr>
                 <th scope="col">#</th>
@@ -17,7 +17,6 @@
                 <th scope="col">Unidad de medida</th>
                 <th scope="col">Categoria</th>
                 <th scope="col">Codigo producto</th>
-                <!-- <th scope="col">Imagen</th> -->
                 <th scope="col">Estatus</th>
                 <th scope="col">Fecha Alta</th>
                 <th scope="col">Acciones</th>
@@ -26,15 +25,14 @@
         <tbody>
             <tr *ngFor="let producto of productos; index as i; first as isFirst">
                 <td>{{i + 1}}</td>
-                <td>{{ producto.nombre_producto }}</td>
-                <td>{{ obtenerNombreEnvase(producto.fk_envase!) }}</td>
-                <td>{{ obtenerNombrePresentacion(producto.fk_presentacion!) }}</td>
+                <td>{{ producto.nombre_producto | titlecase}}</td>
+                <td>{{ obtenerNombreEnvase(producto.fk_envase!) | titlecase }}</td>
+                <td>{{ obtenerNombrePresentacion(producto.fk_presentacion!)  | titlecase}}</td>
                 <td>{{ producto.contenido_neto }}</td>
-                <td>{{ obtenerUnidadMedidaCompleto(producto.fk_unidad_medida!) }}</td>
-                <td>{{ obtenerNombreCategoria(producto.fk_categoria!) }}</td>
+                <td>{{ obtenerUnidadMedidaCompleto(producto.fk_unidad_medida!) | titlecase }}</td>
+                <td>{{ obtenerNombreCategoria(producto.fk_categoria!) | titlecase }}</td>
                 <td>{{ producto.codigo_producto }}</td>
-                <!-- <td>{{ producto.url_imagen }}</td> -->
-                <td>{{ producto.estatus }}</td>
+                <td>{{ producto.estatus}}</td>
                 <td>{{ producto.fecha_alta | date:'dd/MM/yyyy' }}</td>
                 <td>
                     <a (click)="obtenerDetalleProducto(producto.id_producto)" class="edit-button"><i
@@ -45,7 +43,30 @@
                 </td>
             </tr>
         </tbody>
-    </table>
+    </table> -->
+
+    <div class="row row-cols-1 row-cols-md-3 g-4" >
+      <div class="col" *ngFor="let producto of productos;">
+        <div class="card h-100" >
+          <img [src]="producto.url_imagen" class="card-img-top" alt="..." width="10px" height="10px">
+          <div class="card-body">
+            <h5 class="card-title">{{ producto.nombre_producto | titlecase }} {{ obtenerNombrePresentacion(producto.fk_presentacion!) | titlecase }}</h5>
+            <p class="card-text">{{ obtenerNombreEnvase(producto.fk_envase!) | titlecase }} {{ producto.contenido_neto }} {{ obtenerUnidadMedidaCompleto(producto.fk_unidad_medida!) | titlecase }}</p>
+            <p class="card-text">Codigo de Producto: {{ producto.codigo_producto }}</p>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">Categoria: {{ obtenerNombreCategoria(producto.fk_categoria!) | titlecase }}</small> <br>
+            <small class="text-muted">Fecha de alta: {{ producto.fecha_alta | date:'dd/MM/yyyy' }}</small> <br>
+            <small class="text-muted">Estatus: {{ producto.estatus }}</small>
+            <hr>
+            <a (click)="obtenerDetalleProducto(producto.id_producto)" class="edit-button"><i class="fa-solid fa-pen-to-square"></i></a>
+            &nbsp;&nbsp;
+            <a (click)="eliminaProducto(producto.id_producto)" class="delete-button"><i class="fa-solid fa-trash"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
 </section>
 
 <ng-container *ngIf="activarFormularioProducto">
