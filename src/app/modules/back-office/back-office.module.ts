@@ -4,6 +4,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { BackOfficeDashboardComponent } from './back-office-home/back-office-home.component';
 import { BackOfficeRoutingModule } from './back-office-routing.module';
 import { UserDetailComponent } from './navbar/user-detail/user-detail.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -15,7 +16,8 @@ import { UserDetailComponent } from './navbar/user-detail/user-detail.component'
   ],
   imports: [
     CommonModule,
-    BackOfficeRoutingModule
+    BackOfficeRoutingModule,
+    SharedModule
   ]
 })
 export class BackOfficeModule { }

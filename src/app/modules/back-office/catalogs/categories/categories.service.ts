@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
-import { AlertService } from 'src/app/modules/shared/alert/alert.service';
+import { AlertService } from 'src/app/modules/shared/components/alert/alert.service';
 import { environment } from 'src/environments/environment.env';
 import { addCategory, category, getDetalleCategoria, updateCategory } from './models/category.interface';
 const USER_LOCAL_STORAGE_KEY_VENDING = 'userData';

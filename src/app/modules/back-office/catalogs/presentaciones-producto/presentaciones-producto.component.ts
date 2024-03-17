@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { actualizaPresentacionProductoDto, agregarPresentacionProductoDto, obtenPresentacionProductoDto, presentacionProductoDto } from './models/presentacion.producto.interface';
 import { PresentacionesProductoService } from './presentaciones-producto.service';
-import { AlertService } from 'src/app/modules/shared/alert/alert.service';
+import { AlertService } from 'src/app/modules/shared/components/alert/alert.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 const SUSCRIPTOR_LOCAL_STORAGE_KEY_VENDING = 'suscriptorData';

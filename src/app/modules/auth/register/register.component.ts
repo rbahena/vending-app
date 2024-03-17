@@ -4,7 +4,7 @@ import { AuthService } from '../auth.service';
 import { registerInterface } from '../models/register.interface';
 import { EMPTY, catchError, finalize } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
-import { AlertService } from '../../shared/alert/alert.service';
+import { AlertService } from '../../shared/components/alert/alert.service';
 
 @Component({
   selector: 'app-register',

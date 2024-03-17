@@ -3,18 +3,18 @@ import { CommonModule } from '@angular/common';
 import { ProductListComponent } from './product-list/product-list.component';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ChecarestatusPipe } from '../catalogs/pipes/checarestatus.pipe';
+import { SharedModule } from '../../shared/shared.module';
 
 
 const routes = [{ path: '', component: ProductListComponent }];
 @NgModule({
   declarations: [
-    ChecarestatusPipe,
     ProductListComponent
   ],
   imports: [
     CommonModule, RouterModule.forChild(routes),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ]
 })
 export class ProductsModule { }

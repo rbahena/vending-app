@@ -4,6 +4,7 @@ import { CategoriesComponent } from './categories/categories.component';
 import { EnvasesComponent } from './envases/envases.component';
 import { UnidadesMedidaComponent } from './unidades-medida/unidades-medida.component';
 import { PresentacionesProductoComponent } from './presentaciones-producto/presentaciones-producto.component';
+import { ProveedoresComponent } from './proveedores/proveedores.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'presentaciones-producto',
     component: PresentacionesProductoComponent,
+  },
+  {
+    path: 'proveedores',
+    component: ProveedoresComponent,
   }
 
 ];

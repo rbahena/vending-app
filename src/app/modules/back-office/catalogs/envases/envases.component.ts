@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { EnvasesService } from './envases.service';
-import { AlertService } from 'src/app/modules/shared/alert/alert.service';
+import { AlertService } from 'src/app/modules/shared/components/alert/alert.service';
 import { actualizaEnvaseDto, agregarEnvaseDto, envaseDto, obtenDetalleEnvaseDto } from './models/envase.interface';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';

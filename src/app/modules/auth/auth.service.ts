@@ -7,7 +7,7 @@ import { BehaviorSubject, catchError, finalize, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import * as jwt_decode from "jwt-decode";
 import { SuscriptorService } from '../suscriptor/suscriptor.service';
-import { AlertService } from '../shared/alert/alert.service';
+import { AlertService } from '../shared/components/alert/alert.service';
 const USER_LOCAL_STORAGE_KEY_VENDING = 'userData';
 
 @Injectable({

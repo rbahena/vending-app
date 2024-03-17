@@ -3,7 +3,7 @@ import { CategoriesService } from './categories.service';
 import { Observable, catchError, finalize } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { addCategory, category, getDetalleCategoria, updateCategory } from './models/category.interface';
-import { AlertService } from 'src/app/modules/shared/alert/alert.service';
+import { AlertService } from 'src/app/modules/shared/components/alert/alert.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 const SUSCRIPTOR_LOCAL_STORAGE_KEY_VENDING = 'suscriptorData';
 
