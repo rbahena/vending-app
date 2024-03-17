@@ -1,1 +1,65 @@
-<p>proveedores works!</p>
+<h3>{{titleProveedorInterface}}</h3>
+<br>
+<section *ngIf="!activarFormularioProveedor">
+    <button type="button" class="btn btn-success" (click)="mostrarFormularioProveedor()">
+        Agregar nuevo proveedor
+    </button>
+    <br>
+    <br>
+    <table class="table .table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Imagen</th>
+                <th scope="col">Estatus</th>
+                <th scope="col">Fecha creación</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let proveedor of proveedores; index as i; first as isFirst">
+                <td>{{i + 1}}</td>
+                <td>{{ proveedor.nombre_proveedor }}</td>
+                <td>{{ proveedor.url_imagen }}</td>
+                <td>{{ proveedor.estatus | checarestatus }}</td>
+                <td>{{ proveedor.fecha_alta | date:'dd/MM/yyyy' }}</td>
+                <td>
+                    <a (click)="obtenerDetalleProveedor(proveedor.id_proveedor)" class="edit-button"><i
+                            class="fa-solid fa-pen-to-square"></i></a>
+                    &nbsp;&nbsp;
+                    <a (click)="eliminProveedor(proveedor.id_proveedor)" class="delete-button"><i
+                            class="fa-solid fa-trash"></i></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<ng-container *ngIf="activarFormularioProveedor">
+    <form [formGroup]="proveedorFormulario" (ngSubmit)="crearActualizarProveedor()">
+        <div class="mb-3">
+            <label for="nombre_proveedor" class="form-label">Nombre proveedor</label>
+            <input type="text" name="nombre_proveedor" formControlName="nombre_proveedor" autocomplete="off"
+                class="form-control" id="nombre_proveedor" placeholder="Ejemplo: Sam's Club">
+            <div class="alert alert-danger mt-2" [hidden]="proveedorFormulario.valid || proveedorFormulario.pristine">
+                Este campo es obligatorio
+            </div>
+
+        </div>
+        <div class="mb-3">
+
+
+            <label for="url_imagen" class="form-label">Imagen</label>
+            <input type="text" name="url_imagen" formControlName="url_imagen" autocomplete="off" class="form-control"
+                id="url_imagen" placeholder="">
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="ocultarFormularioProveedor()">Cancelar</button>
+            &nbsp;
+            <button type="submit" class="btn btn-primary"
+                [disabled]="proveedorFormulario.invalid">{{valorBoton}}</button>
+        </div>
+    </form>
+</ng-container>

@@ -11,6 +11,7 @@ export interface proveedorDto {
 export interface agregarProveedorDto {
     fk_suscriptor?: number;
     nombre_proveedor?: string;
+    url_imagen?: string;
 }
 
 export interface obtenDetalleProveedorDto {
@@ -22,4 +23,5 @@ export interface actualizaProveedorDto{
     id_proveedor?: number;
     fk_suscriptor?: number;
     nombre_proveedor?: string;
+    url_imagen?: string;
 }
