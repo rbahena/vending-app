@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.env';
 import { actualizaEnvaseDto, agregarEnvaseDto, envaseDto, obtenDetalleEnvaseDto } from './models/envase.interface';
 import { Observable } from 'rxjs';
-import { category } from '../categories/models/category.interface';
 const USER_LOCAL_STORAGE_KEY_VENDING = 'userData';
 
 @Injectable({
