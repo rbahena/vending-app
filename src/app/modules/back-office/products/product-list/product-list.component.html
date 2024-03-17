@@ -135,6 +135,9 @@
           </select>
         </div>
       
+        
+      <app-precio-proveedor></app-precio-proveedor>
+      
         <div class="col-12 text-center">
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" (click)="ocultarFormularioProducto()">Cancelar</button>
@@ -144,6 +147,7 @@
           </div>
         </div>
       </form>
+
       
       
     <p *ngIf="productoFormulario.value.nombre_producto">Se guardara el siguiente producto: <span class="etiqueta">
