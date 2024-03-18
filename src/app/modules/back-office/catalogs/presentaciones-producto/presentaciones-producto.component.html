@@ -19,7 +19,7 @@
         <tbody>
             <tr *ngFor="let presentacion of presentaciones; index as i; first as isFirst">
                 <td>{{i + 1}}</td>
-                <td>{{ presentacion.nombre_presentacion }}</td>
+                <td>{{ presentacion.nombre_presentacion  |  titlecase}}</td>
                 <td>{{ presentacion.estatus | checarestatus }}</td>
                 <td>{{ presentacion.fecha_alta | date:'dd/MM/yyyy' }}</td>
                 <td>

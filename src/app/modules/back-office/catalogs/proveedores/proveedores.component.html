@@ -20,8 +20,8 @@
         <tbody>
             <tr *ngFor="let proveedor of proveedores; index as i; first as isFirst">
                 <td>{{i + 1}}</td>
-                <td>{{ proveedor.nombre_proveedor }}</td>
-                <td>{{ proveedor.url_imagen }}</td>
+                <td class="nombre-proveedor">{{ proveedor.nombre_proveedor |  titlecase }}</td>
+                <td> <img [src]="proveedor.url_imagen" alt="sin imagen"></td>
                 <td>{{ proveedor.estatus | checarestatus }}</td>
                 <td>{{ proveedor.fecha_alta | date:'dd/MM/yyyy' }}</td>
                 <td>

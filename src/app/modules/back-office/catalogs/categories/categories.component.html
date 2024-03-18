@@ -20,7 +20,7 @@
     <tbody>
       <tr *ngFor="let categoria of categorias; index as i; first as isFirst" >
         <td>{{i + 1}}</td>
-        <td>{{ categoria.nombre_categoria }}</td>
+        <td>{{ categoria.nombre_categoria |  titlecase }}</td>
         <td>{{ categoria.estatus | checarestatus }}</td>
         <td>{{ categoria.fecha_alta | date:'dd/MM/yyyy' }}</td>
         <td>

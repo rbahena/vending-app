@@ -1,0 +1,12 @@
+img {
+    width: 15%; /* Puedes ajustar este valor según sea necesario */
+    height: 15%; /* Puedes ajustar este valor según sea necesario */
+    object-fit: cover; /* Esto asegura que la imagen se ajuste dentro del contenedor sin deformarse */
+}
+
+.nombre-proveedor {
+    max-width: 200px; /* Puedes ajustar este valor según sea necesario */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Esto añadirá puntos suspensivos (...) si el texto se corta */
+    white-space: nowrap; /* Esto evitará que el texto se divida en múltiples líneas */
+}
