@@ -1,1 +1,51 @@
-<p>unidades-compra works!</p>
+<h3>{{tituloInterface}}</h3>
+<br>
+<section *ngIf="!activarFormularioUnidadCompra">
+    <button type="button" class="btn btn-success" (click)="mostrarFormularioUnidad()">
+        Agregar nuevo
+    </button>
+    <br>
+    <br>
+    <table class="table .table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Estatus</th>
+                <th scope="col">Fecha creación</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let unidad of unidadesCompra; index as i; first as isFirst">
+                <td>{{i + 1}}</td>
+                <td>{{ unidad.nombre_unidad_compra }}</td>
+                <td>{{ unidad.estatus | checarestatus }}</td>
+                <td>{{ unidad.fecha_alta | date:'dd/MM/yyyy' }}</td>
+                <td>
+                    <a (click)="obtenerDetalleUnidadMedida(unidad.id_unidad_compra)" class="edit-button"><i class="fa-solid fa-pen-to-square"></i></a>
+                    &nbsp;&nbsp;
+                    <a (click)="eliminaUnidadMedida(unidad.id_unidad_compra)" class="delete-button"><i class="fa-solid fa-trash"></i></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<ng-container *ngIf="activarFormularioUnidadCompra">
+    <form [formGroup]="unidadMedidaCompraFormulario" (ngSubmit)="crearActualizarUnidadMedida()">
+        <div class="mb-3">
+            <label for="nombreUnidad" class="form-label">Nombre Unidad</label>
+            <input type="text" name="nombreUnidad" formControlName="nombre_unidad" autocomplete="off"
+                class="form-control" id="nombreUnidad" placeholder="Ejemplo: Kilogramos">
+            <div class="alert alert-danger mt-2" [hidden]="unidadMedidaCompraFormulario.valid || unidadMedidaCompraFormulario.pristine">
+                Este campo es obligatorio
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="ocultarFormularioUnidad()">Cancelar</button>
+            &nbsp;
+            <button type="submit" class="btn btn-primary" [disabled]="unidadMedidaCompraFormulario.invalid">{{valorBoton}}</button>
+        </div>
+    </form>
+</ng-container>

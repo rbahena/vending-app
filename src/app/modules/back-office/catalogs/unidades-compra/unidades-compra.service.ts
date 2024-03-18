@@ -35,7 +35,7 @@ export class UnidadesCompraService {
     return this.httpClient.get<unidadCompraDto[]>(urlApi, {headers});
   }
 
-  obtenerUnidadCompra(obtenUnidadCompraDto: obtenUnidadCompraDto): Observable<obtenUnidadCompraDto> {
+  obtenerUnidadCompra(obtenUnidadCompraDto: obtenUnidadCompraDto): Observable<unidadCompraDto> {
     const metodApi = 'obtenerUnidadCompra';
     const urlApi = this.urlApiBase + this.apiController + "/" + metodApi;
     const token: String = this.loadUserFromLocalStorage();
