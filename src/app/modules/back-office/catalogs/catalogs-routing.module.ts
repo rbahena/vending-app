@@ -5,6 +5,7 @@ import { EnvasesComponent } from './envases/envases.component';
 import { UnidadesMedidaComponent } from './unidades-medida/unidades-medida.component';
 import { PresentacionesProductoComponent } from './presentaciones-producto/presentaciones-producto.component';
 import { ProveedoresComponent } from './proveedores/proveedores.component';
+import { UnidadesCompraComponent } from './unidades-compra/unidades-compra.component';
 
 const routes: Routes = [
   {
@@ -26,8 +27,11 @@ const routes: Routes = [
   {
     path: 'proveedores',
     component: ProveedoresComponent,
+  },
+  {
+    path: 'unidades-compra',
+    component: UnidadesCompraComponent,
   }
-
 ];
 
 @NgModule({

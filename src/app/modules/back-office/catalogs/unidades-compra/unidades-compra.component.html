@@ -35,9 +35,9 @@
 <ng-container *ngIf="activarFormularioUnidadCompra">
     <form [formGroup]="unidadMedidaCompraFormulario" (ngSubmit)="crearActualizarUnidadMedida()">
         <div class="mb-3">
-            <label for="nombreUnidad" class="form-label">Nombre Unidad</label>
-            <input type="text" name="nombreUnidad" formControlName="nombre_unidad" autocomplete="off"
-                class="form-control" id="nombreUnidad" placeholder="Ejemplo: Kilogramos">
+            <label for="nombre_unidad_compra" class="form-label">Nombre Unidad</label>
+            <input type="text" name="nombre_unidad_compra" formControlName="nombre_unidad_compra" autocomplete="off"
+                class="form-control" id="nombre_unidad_compra" placeholder="Ejemplo: Caja">
             <div class="alert alert-danger mt-2" [hidden]="unidadMedidaCompraFormulario.valid || unidadMedidaCompraFormulario.pristine">
                 Este campo es obligatorio
             </div>

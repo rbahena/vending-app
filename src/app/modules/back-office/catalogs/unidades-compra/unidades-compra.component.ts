@@ -22,7 +22,9 @@ export class UnidadesCompraComponent {
   unidadesCompra: unidadCompraDto[] = [];
 
   constructor(private unidadCompraService: UnidadesCompraService, private alertService: AlertService) { }
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+    this.obtenerUnidades();
+  }
 
   unidadMedidaCompraFormulario = new FormGroup({
     nombre_unidad_compra: new FormControl('', [Validators.required]),
@@ -46,8 +48,9 @@ export class UnidadesCompraComponent {
     if (this.unidadMedidaCompraFormulario.value.id_unidad_compra == null) {
       this.agregarUnidadCompraDto = {
         fk_suscriptor: this.recuperaIdSuscriptorLocalStorage(),
-        nombre_unidad: this.unidadMedidaCompraFormulario.value.nombre_unidad_compra!,
+        nombre_unidad_compra: this.unidadMedidaCompraFormulario.value.nombre_unidad_compra!,
       }
+      console.log(this.agregarUnidadCompraDto);
       this.unidadCompraService.crearUnidadCompra(this.agregarUnidadCompraDto).subscribe({
         next: response => {
           this.obtenerUnidades();
@@ -62,8 +65,8 @@ export class UnidadesCompraComponent {
     else {
       this.actualizaUnidadCompraDto = {
         fk_suscriptor: this.recuperaIdSuscriptorLocalStorage(),
-        id_unidad: this.unidadMedidaCompraFormulario.value.id_unidad_compra,
-        nombre_unidad: this.unidadMedidaCompraFormulario.value.nombre_unidad_compra!
+        id_unidad_compra: this.unidadMedidaCompraFormulario.value.id_unidad_compra,
+        nombre_unidad_compra: this.unidadMedidaCompraFormulario.value.nombre_unidad_compra!
       }
       this.actualizaUnidadMedida(this.actualizaUnidadCompraDto);
     }
@@ -87,7 +90,7 @@ export class UnidadesCompraComponent {
   obtenerDetalleUnidadMedida(id_unidad: number) {
     this.obtenerUnidadCompraDto = {
       fk_suscriptor: this.recuperaIdSuscriptorLocalStorage(),
-      id_unidad: id_unidad
+      id_unidad_compra: id_unidad
     }
     this.unidadCompraService.obtenerUnidadCompra(this.obtenerUnidadCompraDto).subscribe({
       next: response => {
@@ -105,9 +108,9 @@ export class UnidadesCompraComponent {
   eliminaUnidadMedida(id_unidad: number){
     this.actualizaUnidadCompraDto = {
       fk_suscriptor:this.recuperaIdSuscriptorLocalStorage(),
-      id_unidad:id_unidad
+      id_unidad_compra:id_unidad
     }
-    this.unidadCompraService.eliminaUnidadMedida(this.actualizaUnidadCompraDto).subscribe({
+    this.unidadCompraService.eliminaUnidadCompra(this.actualizaUnidadCompraDto).subscribe({
       next: ()=> {
         this.obtenerUnidades();
         this.alertService.showAlert('El registro se actualizó de manera exitosa..');
@@ -127,7 +130,7 @@ export class UnidadesCompraComponent {
 
   ocultarFormularioUnidad() {
     this.activarFormularioUnidadCompra = false;
-    this.tituloInterface = "Unidades de medida"
+    this.tituloInterface = "Unidades de compra"
     this.unidadMedidaCompraFormulario.reset();
   }
 

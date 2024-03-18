@@ -9,16 +9,16 @@ export interface unidadCompraDto {
 
 export interface agregarUnidadCompraDto {
     fk_suscriptor?: number;
-    nombre_unidad?: string;
+    nombre_unidad_compra?: string;
 }
 
 export interface obtenUnidadCompraDto {
     fk_suscriptor?: number;
-    id_unidad?: number;
+    id_unidad_compra?: number;
 }
 
 export interface actualizaunidadCompraDto{
-    id_unidad?: number;
+    id_unidad_compra?: number;
     fk_suscriptor?: number;
-    nombre_unidad?: string;
+    nombre_unidad_compra?: string;
 }

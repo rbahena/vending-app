@@ -57,8 +57,8 @@ export class UnidadesCompraService {
     return this.httpClient.post<any>(urlApi, actualizaunidadCompraDto, {headers});
   }
 
-  eliminaUnidadMedida(actualizaunidadCompraDto: actualizaunidadCompraDto) {
-    const metodApi = 'eliminaUnidad';
+  eliminaUnidadCompra(actualizaunidadCompraDto: actualizaunidadCompraDto) {
+    const metodApi = 'eliminaUnidadCompra';
     const urlApi = this.urlApiBase + this.apiController + "/" + metodApi;
     const token: String = this.loadUserFromLocalStorage();
     const headers = new HttpHeaders({
