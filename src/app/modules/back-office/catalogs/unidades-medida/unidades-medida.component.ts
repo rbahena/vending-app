@@ -67,7 +67,7 @@ export class UnidadesMedidaComponent {
       this.actualizaUnidadDto = {
         fk_suscriptor: this.recuperaIdSuscriptorLocalStorage(),
         id_unidad: this.unidadMedidaFormulario.value.id_unidad_medida,
-        nombre_envase: this.unidadMedidaFormulario.value.nombre_unidad!,
+        nombre_unidadMedida: this.unidadMedidaFormulario.value.nombre_unidad!,
         siglas_unidad: this.unidadMedidaFormulario.value.siglas_unidad!,
       }
       this.actualizaUnidadMedida(this.actualizaUnidadDto);
