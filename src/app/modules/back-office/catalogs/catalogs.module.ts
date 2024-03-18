@@ -9,6 +9,7 @@ import { UnidadesMedidaComponent } from './unidades-medida/unidades-medida.compo
 import { PresentacionesProductoComponent } from './presentaciones-producto/presentaciones-producto.component';
 import { ProveedoresComponent } from './proveedores/proveedores.component';
 import { SharedModule } from '../../shared/shared.module';
+import { UnidadesCompraComponent } from './unidades-compra/unidades-compra.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { SharedModule } from '../../shared/shared.module';
     EnvasesComponent,
     UnidadesMedidaComponent,
     PresentacionesProductoComponent,
-    ProveedoresComponent
+    ProveedoresComponent,
+    UnidadesCompraComponent
   ],
   imports: [
     CommonModule,

@@ -22,6 +22,6 @@ export interface obtenUnidadMedidProductoDto {
 export interface actualizaunidadMedidProductoDto{
     id_unidad?: number;
     fk_suscriptor?: number;
-    nombre_envase?: string;
+    nombre_unidadMedida?: string;
     siglas_unidad?: string;
 }
