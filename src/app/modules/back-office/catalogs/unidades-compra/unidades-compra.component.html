@@ -19,7 +19,7 @@
         <tbody>
             <tr *ngFor="let unidad of unidadesCompra; index as i; first as isFirst">
                 <td>{{i + 1}}</td>
-                <td>{{ unidad.nombre_unidad_compra }}</td>
+                <td>{{ unidad.nombre_unidad_compra |  titlecase }}</td>
                 <td>{{ unidad.estatus | checarestatus }}</td>
                 <td>{{ unidad.fecha_alta | date:'dd/MM/yyyy' }}</td>
                 <td>
