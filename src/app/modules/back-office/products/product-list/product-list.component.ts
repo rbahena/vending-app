@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { actualizaProductoDto, agregarProductoDto, obtenProductoDto, productoDto } from './models/producto.interface';
-import { ProductListService } from './product-list.service';
+import { ProductListService } from '../product-list.service';
 import { AlertService } from 'src/app/modules/shared/components/alert/alert.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';

@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.env';
-import { actualizaProductoDto, agregarProductoDto, obtenProductoDto, productoDto } from './models/producto.interface';
+import { actualizaProductoDto, agregarProductoDto, obtenProductoDto, productoDto } from './product-list/models/producto.interface';
 import { Observable } from 'rxjs';
 const USER_LOCAL_STORAGE_KEY_VENDING = 'userData';
 
