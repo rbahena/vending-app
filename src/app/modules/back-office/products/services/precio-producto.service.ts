@@ -1,72 +1,72 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.env';
-import { actualizaProductoDto, agregarProductoDto, obtenProductoDto, productoDto } from './product-list/models/producto.interface';
+import { actualizaPrecioProveedorDto, agregarPrecioProveedorDto, obtenPrecioProveedorDto, precioProveedorDto } from '../precio-proveedor/models/precio-proveedor.interface';
 import { Observable } from 'rxjs';
 const USER_LOCAL_STORAGE_KEY_VENDING = 'userData';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductListService {
+export class PrecioProductoService {
   urlApiBase = environment.urlApi;
-  apiController: string = 'productos';
+  apiController: string = 'rel-precio-producto';
 
   constructor(private httpClient: HttpClient) { }
 
-  crearProducto(agregarProductoDto:agregarProductoDto){
-    const metodApi = 'crearProducto';
+  crearRelacionPrecioProducto(crearPrecioProducto: agregarPrecioProveedorDto){
+    const metodApi = 'crearRelacionPrecioProducto';
     const urlApi = this.urlApiBase + this.apiController + "/" + metodApi;
     const token: String = this.loadUserFromLocalStorage();
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    return this.httpClient.post<productoDto>(urlApi, agregarProductoDto, { headers });
+    return this.httpClient.post<precioProveedorDto>(urlApi, crearPrecioProducto, {headers});
   }
-  
-  obtenerProductos(id_suscriptor: number): Observable<productoDto[]> {
-    const metodApi = 'obtenerProductos';
+
+  obtenerRelacionesPrecioProducto(id_suscriptor: number): Observable<precioProveedorDto[]> {
+    const metodApi = 'obtenerRelacionesPrecioProducto';
     const urlApi = this.urlApiBase + this.apiController + "/" + metodApi + "/" + id_suscriptor;
     const token: String = this.loadUserFromLocalStorage();
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    return this.httpClient.get<productoDto[]>(urlApi, { headers });
+    return this.httpClient.get<precioProveedorDto[]>(urlApi, {headers});
   }
 
-  obtenerProducto(obtenProductoDto: obtenProductoDto): Observable<productoDto> {
-    const metodApi = 'obtenerProducto';
+  obtenerRelacionPrecioProducto(obtenPrecioProveedorDto: obtenPrecioProveedorDto): Observable<precioProveedorDto> {
+    const metodApi = 'obtenerRelacionPrecioProducto';
     const urlApi = this.urlApiBase + this.apiController + "/" + metodApi;
     const token: String = this.loadUserFromLocalStorage();
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    return this.httpClient.post<productoDto>(urlApi, obtenProductoDto, { headers });
+    return this.httpClient.post<precioProveedorDto>(urlApi, obtenPrecioProveedorDto, {headers});
   }
 
-  actualizaProducto(actualizaProductoDto: actualizaProductoDto) {
-    const metodApi = 'actualizaProducto';
+  actualizaRelacionPrecioProducto(actualizaPrecioProveedorDto: actualizaPrecioProveedorDto) {
+    const metodApi = 'actualizaRelacionPrecioProducto';
     const urlApi = this.urlApiBase + this.apiController + "/" + metodApi;
     const token: String = this.loadUserFromLocalStorage();
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    return this.httpClient.post<any>(urlApi, actualizaProductoDto, {headers});
+    return this.httpClient.post<precioProveedorDto>(urlApi, actualizaPrecioProveedorDto, {headers});
   }
 
-  eliminaProducto(actualizaProductoDto: actualizaProductoDto) {
-    const metodApi = 'eliminaProducto';
+  eliminaRelacionPrecioProducto(actualizaPrecioProveedorDto: actualizaPrecioProveedorDto) {
+    const metodApi = 'eliminaRelacionPrecioProducto';
     const urlApi = this.urlApiBase + this.apiController + "/" + metodApi;
     const token: String = this.loadUserFromLocalStorage();
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    return this.httpClient.post<any>(urlApi, actualizaProductoDto, {headers});
+    return this.httpClient.post<precioProveedorDto>(urlApi, actualizaPrecioProveedorDto, {headers});
   }
 
   private loadUserFromLocalStorage(): String {
