@@ -7,7 +7,10 @@ import { SharedModule } from '../../shared/shared.module';
 import { PrecioProveedorComponent } from './precio-proveedor/precio-proveedor.component';
 
 
-const routes = [{ path: '', component: ProductListComponent }];
+const routes = [
+  { path: '', component: ProductListComponent },
+  { path: 'precio-producto', component: PrecioProveedorComponent },
+];
 @NgModule({
   declarations: [
     ProductListComponent,
