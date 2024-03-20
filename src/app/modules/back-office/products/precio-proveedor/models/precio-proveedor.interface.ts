@@ -30,13 +30,13 @@ export interface obtenPrecioProveedorDto {
 }
 
 export interface actualizaPrecioProveedorDto {
-    id_rel_precio_producto: number;
-    fk_suscriptor: number;
-    fk_producto: number;
-    fk_proveedor: number;
-    fk_unidad_compra: number;
-    piezas_unidad_compra: string;
-    costo_unidad_compra: string;
-    costo_pieza: number;
-    fecha_ultima_actualizacion: Date;
+    id_rel_precio_producto?: number;
+    fk_suscriptor?: number;
+    fk_producto?: number;
+    fk_proveedor?: number;
+    fk_unidad_compra?: number;
+    piezas_unidad_compra?: string;
+    costo_unidad_compra?: string;
+    costo_pieza?: number;
+    fecha_ultima_actualizacion?: Date;
 }
