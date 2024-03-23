@@ -50,7 +50,7 @@
         <select formControlName="fk_producto" class="form-select">
           <option [ngValue]="null" disabled selected>Elige un producto</option>
           <option *ngFor="let producto of productos" [ngValue]="producto.id_producto">
-            {{ producto.nombre_producto }}
+            {{ producto.nombre_producto | titlecase }} {{producto.presentaciones!.nombre_presentacion | titlecase}} {{producto.envases!.nombre_envase | titlecase }} {{producto.contenido_neto}}{{producto.unidadesMedida!.siglas_unidad}}
           </option>
         </select>
       </div>
@@ -60,7 +60,7 @@
         <select formControlName="fk_proveedor" class="form-select">
           <option [ngValue]="null" disabled selected>Elige el proveedor</option>
           <option *ngFor="let proveedor of proveedores" [ngValue]="proveedor.id_proveedor">
-            {{ proveedor.nombre_proveedor }}
+            {{ proveedor.nombre_proveedor | titlecase}}
           </option>
         </select>
       </div>
@@ -70,7 +70,7 @@
         <select formControlName="fk_unidad_compra" class="form-select">
           <option [ngValue]="null" disabled selected>Elige la unidad de compra</option>
           <option *ngFor="let unidades of unidadesCompra" [ngValue]="unidades.id_unidad_compra">
-            {{ unidades.nombre_unidad_compra }}
+            {{ unidades.nombre_unidad_compra  | titlecase }}
           </option>
         </select>
       </div>

@@ -190,6 +190,7 @@ export class PrecioProveedorComponent {
     this.productoService.obtenerProductos(this.id_suscriptor).subscribe({
       next: response => {
         this.productos = response;
+        console.log(this.productos);
       },
       error: (error: HttpErrorResponse) => {
         this.alertService.showAlert(error.error.message, 'error');
