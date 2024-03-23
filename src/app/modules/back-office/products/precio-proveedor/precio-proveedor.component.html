@@ -23,7 +23,7 @@
         <tbody>
             <tr *ngFor="let precio of preciosProductos; index as i; first as isFirst">
                 <td>{{i + 1}}</td>
-                <td>{{ precio.producto!.nombre_producto}}</td>
+                <td>{{ precio.producto!.nombre_producto}}  {{ precio.producto!.presentaciones!.nombre_presentacion | lowercase }}  {{ precio.producto!.envases!.nombre_envase | lowercase }} {{ precio.producto!.contenido_neto }}{{ precio.producto!.unidadesMedida!.siglas_unidad | lowercase }}</td>
                 <td>{{ precio.proveedor!.nombre_proveedor }}</td>
                 <td>{{ precio.unidadesCompra!.nombre_unidad_compra}}</td>
                 <td>{{ precio.piezas_unidad_compra}}</td>
@@ -78,7 +78,7 @@
         <div class="col-md-6">
           <label for="piezas_unidad_compra" class="form-label">piezas unidad compra</label>
           <input type="text" name="piezas_unidad_compra" formControlName="piezas_unidad_compra" autocomplete="off"
-            class="form-control" id="piezas_unidad_compra" placeholder="Ej. 24">
+            class="form-control" id="piezas_unidad_compra" placeholder="Ej. 24" onchange="">
         </div>
       
         <div class="col-md-6">
