@@ -1,3 +1,7 @@
+import { proveedorDto } from "../../../catalogs/proveedores/models/proveedores.interface";
+import { unidadCompraDto } from "../../../catalogs/unidades-compra/models/unidad.compra.interface";
+import { agregarProductoDto, productoDto } from "../../product-list/models/producto.interface";
+
 export interface precioProveedorDto {
     id_rel_precio_producto: number;
     fk_suscriptor: number;
@@ -11,6 +15,9 @@ export interface precioProveedorDto {
     estatus: number;
     fecha_alta: Date;
     fecha_baja: Date;
+    producto?:agregarProductoDto;
+    proveedor?:proveedorDto;
+    unidadesCompra?:unidadCompraDto;
 }
 
 export interface agregarPrecioProveedorDto {

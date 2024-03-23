@@ -5,6 +5,8 @@ import { AlertService } from 'src/app/modules/shared/components/alert/alert.serv
 import { group } from '@angular/animations';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ProductListComponent } from '../product-list/product-list.component';
+import { ProductListService } from '../services/product.service';
 const SUSCRIPTOR_LOCAL_STORAGE_KEY_VENDING = 'suscriptorData';
 
 @Component({
@@ -21,9 +23,13 @@ export class PrecioProveedorComponent {
   activarFormularioPrecioProveedor: boolean = false;
   id_suscriptor: number | undefined;
   preciosProductos: precioProveedorDto[] = [];
+  
 
-  constructor(private precioProductoService: PrecioProductoService, private alertService: AlertService) { }
-  ngOnInit(): void { }
+  constructor(private precioProductoService: PrecioProductoService, private alertService: AlertService,
+      private productoService: ProductListService) { }
+  ngOnInit(): void {
+    this.obtenerPrecios();
+  }
 
   precioProveedorFormulario = new FormGroup({
     id_rel_precio_producto: new FormControl(),
@@ -41,6 +47,7 @@ export class PrecioProveedorComponent {
     this.id_suscriptor = this.recuperaIdSuscriptorLocalStorage();
     this.precioProductoService.obtenerRelacionesPrecioProducto(this.id_suscriptor).subscribe({
       next: response => {
+        console.log('Precios', response);
         this.preciosProductos = response;
       },
       error: (error: HttpErrorResponse) => {
@@ -53,14 +60,14 @@ export class PrecioProveedorComponent {
     //if (this.productoFormulario.invalid) return;
     if (this.precioProveedorFormulario.value.id_rel_precio_producto == null) {
       this.agregarPrecioProveedor = {
-        fk_suscriptor:this.precioProveedorFormulario.value.fk_suscriptor!,
-        fk_producto:this.precioProveedorFormulario.value.fk_producto!,
-        fk_proveedor:this.precioProveedorFormulario.value.fk_proveedor!,
-        fk_unidad_compra:this.precioProveedorFormulario.value.fk_unidad_compra!,
-        piezas_unidad_compra:this.precioProveedorFormulario.value.piezas_unidad_compra!,
-        costo_unidad_compra:this.precioProveedorFormulario.value.costo_unidad_compra!,
-        costo_pieza:this.precioProveedorFormulario.value.costo_pieza!,
-        fecha_ultima_actualizacion:this.precioProveedorFormulario.value.fecha_ultima_actualizacion!,
+        fk_suscriptor: this.precioProveedorFormulario.value.fk_suscriptor!,
+        fk_producto: this.precioProveedorFormulario.value.fk_producto!,
+        fk_proveedor: this.precioProveedorFormulario.value.fk_proveedor!,
+        fk_unidad_compra: this.precioProveedorFormulario.value.fk_unidad_compra!,
+        piezas_unidad_compra: this.precioProveedorFormulario.value.piezas_unidad_compra!,
+        costo_unidad_compra: this.precioProveedorFormulario.value.costo_unidad_compra!,
+        costo_pieza: this.precioProveedorFormulario.value.costo_pieza!,
+        fecha_ultima_actualizacion: this.precioProveedorFormulario.value.fecha_ultima_actualizacion!,
       }
 
       this.precioProductoService.crearRelacionPrecioProducto(this.agregarPrecioProveedor).subscribe({
@@ -76,15 +83,15 @@ export class PrecioProveedorComponent {
     }
     else {
       this.actualizarPrecioProveedor = {
-        id_rel_precio_producto:this.precioProveedorFormulario.value.id_rel_precio_producto!,
-        fk_suscriptor:this.precioProveedorFormulario.value.fk_suscriptor!,
-        fk_producto:this.precioProveedorFormulario.value.fk_producto!,
-        fk_proveedor:this.precioProveedorFormulario.value.fk_proveedor!,
-        fk_unidad_compra:this.precioProveedorFormulario.value.fk_unidad_compra!,
-        piezas_unidad_compra:this.precioProveedorFormulario.value.piezas_unidad_compra!,
-        costo_unidad_compra:this.precioProveedorFormulario.value.costo_unidad_compra!,
-        costo_pieza:this.precioProveedorFormulario.value.costo_pieza!,
-        fecha_ultima_actualizacion:this.precioProveedorFormulario.value.fecha_ultima_actualizacion!,
+        id_rel_precio_producto: this.precioProveedorFormulario.value.id_rel_precio_producto!,
+        fk_suscriptor: this.precioProveedorFormulario.value.fk_suscriptor!,
+        fk_producto: this.precioProveedorFormulario.value.fk_producto!,
+        fk_proveedor: this.precioProveedorFormulario.value.fk_proveedor!,
+        fk_unidad_compra: this.precioProveedorFormulario.value.fk_unidad_compra!,
+        piezas_unidad_compra: this.precioProveedorFormulario.value.piezas_unidad_compra!,
+        costo_unidad_compra: this.precioProveedorFormulario.value.costo_unidad_compra!,
+        costo_pieza: this.precioProveedorFormulario.value.costo_pieza!,
+        fecha_ultima_actualizacion: this.precioProveedorFormulario.value.fecha_ultima_actualizacion!,
       }
       this.actualizaPrecioProducto(this.actualizarPrecioProveedor);
     }
@@ -115,15 +122,15 @@ export class PrecioProveedorComponent {
         this.activarFormularioPrecioProveedor = true;
         this.tituloInterface = 'Actualizar producto';
         this.precioProveedorFormulario.setValue({
-          id_rel_precio_producto:this.precioProveedorFormulario.value.id_rel_precio_producto!,
-          fk_suscriptor:this.precioProveedorFormulario.value.fk_suscriptor!,
-          fk_producto:this.precioProveedorFormulario.value.fk_producto!,
-          fk_proveedor:this.precioProveedorFormulario.value.fk_proveedor!,
-          fk_unidad_compra:this.precioProveedorFormulario.value.fk_unidad_compra!,
-          piezas_unidad_compra:this.precioProveedorFormulario.value.piezas_unidad_compra!,
-          costo_unidad_compra:this.precioProveedorFormulario.value.costo_unidad_compra!,
-          costo_pieza:this.precioProveedorFormulario.value.costo_pieza!,
-          fecha_ultima_actualizacion:this.precioProveedorFormulario.value.fecha_ultima_actualizacion!,
+          id_rel_precio_producto: this.precioProveedorFormulario.value.id_rel_precio_producto!,
+          fk_suscriptor: this.precioProveedorFormulario.value.fk_suscriptor!,
+          fk_producto: this.precioProveedorFormulario.value.fk_producto!,
+          fk_proveedor: this.precioProveedorFormulario.value.fk_proveedor!,
+          fk_unidad_compra: this.precioProveedorFormulario.value.fk_unidad_compra!,
+          piezas_unidad_compra: this.precioProveedorFormulario.value.piezas_unidad_compra!,
+          costo_unidad_compra: this.precioProveedorFormulario.value.costo_unidad_compra!,
+          costo_pieza: this.precioProveedorFormulario.value.costo_pieza!,
+          fecha_ultima_actualizacion: this.precioProveedorFormulario.value.fecha_ultima_actualizacion!,
         })
         this.valorBoton = 'Actualizar';
       },
@@ -133,7 +140,7 @@ export class PrecioProveedorComponent {
     });
   }
 
-  eliminaProducto(id_precioProducto: number) {
+  eliminaPrecioProducto(id_precioProducto: number) {
     this.actualizarPrecioProveedor = {
       fk_suscriptor: this.recuperaIdSuscriptorLocalStorage(),
       id_rel_precio_producto: id_precioProducto
@@ -149,8 +156,23 @@ export class PrecioProveedorComponent {
     })
   }
 
+  mostrarFormularioPrecioProducto() {
+    this.precioProveedorFormulario.reset();
+    this.activarFormularioPrecioProveedor = true;
+    this.tituloInterface = "Agregar nuevo producto."
+    this.valorBoton = 'Agregar'
+
+  }
+
+  ocultarFormularioPrecioProducto() {
+    this.activarFormularioPrecioProveedor = false;
+    this.tituloInterface = "Productos"
+    this.precioProveedorFormulario.reset();
+  }
+
   private recuperaIdSuscriptorLocalStorage(): number {
     const idSuscr = localStorage.getItem(SUSCRIPTOR_LOCAL_STORAGE_KEY_VENDING);
     return Number(idSuscr);
   }
+
 }
