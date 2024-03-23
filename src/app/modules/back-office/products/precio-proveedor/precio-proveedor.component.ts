@@ -7,6 +7,11 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ProductListComponent } from '../product-list/product-list.component';
 import { ProductListService } from '../services/product.service';
+import { proveedorDto } from '../../catalogs/proveedores/models/proveedores.interface';
+import { unidadCompraDto } from '../../catalogs/unidades-compra/models/unidad.compra.interface';
+import { productoDto } from '../product-list/models/producto.interface';
+import { ProveedoresService } from '../../catalogs/proveedores/proveedores.service';
+import { UnidadesCompraService } from '../../catalogs/unidades-compra/unidades-compra.service';
 const SUSCRIPTOR_LOCAL_STORAGE_KEY_VENDING = 'suscriptorData';
 
 @Component({
@@ -18,17 +23,27 @@ export class PrecioProveedorComponent {
   agregarPrecioProveedor: agregarPrecioProveedorDto = {};
   obtenerPrecioProveedor: obtenPrecioProveedorDto = {};
   actualizarPrecioProveedor: actualizaPrecioProveedorDto = {};
-  tituloInterface: String = 'Precio producto';
+  tituloInterface: String = 'Agregar precio a producto';
   valorBoton: String = 'Agregar';
   activarFormularioPrecioProveedor: boolean = false;
   id_suscriptor: number | undefined;
   preciosProductos: precioProveedorDto[] = [];
   
+  productos: productoDto[] = [];
+  proveedores: proveedorDto[] = [];
+  unidadesCompra: unidadCompraDto[] = [];
+
+  
 
   constructor(private precioProductoService: PrecioProductoService, private alertService: AlertService,
-      private productoService: ProductListService) { }
+      private productoService: ProductListService,
+      private proveedorService:ProveedoresService,
+      private unidadCompraService: UnidadesCompraService) { }
   ngOnInit(): void {
     this.obtenerPrecios();
+    this.obtenerProductos();
+    this.obtenerProveedores();
+    this.obtenerUnidadesCompra();
   }
 
   precioProveedorFormulario = new FormGroup({
@@ -60,7 +75,7 @@ export class PrecioProveedorComponent {
     //if (this.productoFormulario.invalid) return;
     if (this.precioProveedorFormulario.value.id_rel_precio_producto == null) {
       this.agregarPrecioProveedor = {
-        fk_suscriptor: this.precioProveedorFormulario.value.fk_suscriptor!,
+        fk_suscriptor: this.recuperaIdSuscriptorLocalStorage(),
         fk_producto: this.precioProveedorFormulario.value.fk_producto!,
         fk_proveedor: this.precioProveedorFormulario.value.fk_proveedor!,
         fk_unidad_compra: this.precioProveedorFormulario.value.fk_unidad_compra!,
@@ -122,15 +137,15 @@ export class PrecioProveedorComponent {
         this.activarFormularioPrecioProveedor = true;
         this.tituloInterface = 'Actualizar producto';
         this.precioProveedorFormulario.setValue({
-          id_rel_precio_producto: this.precioProveedorFormulario.value.id_rel_precio_producto!,
-          fk_suscriptor: this.precioProveedorFormulario.value.fk_suscriptor!,
-          fk_producto: this.precioProveedorFormulario.value.fk_producto!,
-          fk_proveedor: this.precioProveedorFormulario.value.fk_proveedor!,
-          fk_unidad_compra: this.precioProveedorFormulario.value.fk_unidad_compra!,
-          piezas_unidad_compra: this.precioProveedorFormulario.value.piezas_unidad_compra!,
-          costo_unidad_compra: this.precioProveedorFormulario.value.costo_unidad_compra!,
-          costo_pieza: this.precioProveedorFormulario.value.costo_pieza!,
-          fecha_ultima_actualizacion: this.precioProveedorFormulario.value.fecha_ultima_actualizacion!,
+          id_rel_precio_producto: response.id_rel_precio_producto,
+          fk_suscriptor: response.fk_suscriptor,
+          fk_producto: response.fk_producto,
+          fk_proveedor: response.fk_proveedor,
+          fk_unidad_compra: response.fk_unidad_compra,
+          piezas_unidad_compra: response.piezas_unidad_compra,
+          costo_unidad_compra: response.costo_unidad_compra,
+          costo_pieza: response.costo_pieza,
+          fecha_ultima_actualizacion: response.fecha_ultima_actualizacion,
         })
         this.valorBoton = 'Actualizar';
       },
@@ -159,7 +174,7 @@ export class PrecioProveedorComponent {
   mostrarFormularioPrecioProducto() {
     this.precioProveedorFormulario.reset();
     this.activarFormularioPrecioProveedor = true;
-    this.tituloInterface = "Agregar nuevo producto."
+    this.tituloInterface = "Agregar precio a producto."
     this.valorBoton = 'Agregar'
 
   }
@@ -168,6 +183,42 @@ export class PrecioProveedorComponent {
     this.activarFormularioPrecioProveedor = false;
     this.tituloInterface = "Productos"
     this.precioProveedorFormulario.reset();
+  }
+
+  async obtenerProductos() {
+    this.id_suscriptor = this.recuperaIdSuscriptorLocalStorage();
+    this.productoService.obtenerProductos(this.id_suscriptor).subscribe({
+      next: response => {
+        this.productos = response;
+      },
+      error: (error: HttpErrorResponse) => {
+        this.alertService.showAlert(error.error.message, 'error');
+      }
+    });
+  }
+
+  async obtenerProveedores() {
+    this.id_suscriptor = this.recuperaIdSuscriptorLocalStorage();
+    this.proveedorService.obtenerProveedores(this.id_suscriptor).subscribe({
+      next: response => {
+        this.proveedores = response;
+      },
+      error: (error: HttpErrorResponse) => {
+        this.alertService.showAlert(error.error.message, 'error');
+      }
+    });
+  }
+
+  async obtenerUnidadesCompra() {
+    this.id_suscriptor = this.recuperaIdSuscriptorLocalStorage();
+    this.unidadCompraService.obtenerUnidadesCompra(this.id_suscriptor).subscribe({
+      next: response => {
+        this.unidadesCompra = response;
+      },
+      error: (error: HttpErrorResponse) => {
+        this.alertService.showAlert(error.error.message, 'error');
+      }
+    });
   }
 
   private recuperaIdSuscriptorLocalStorage(): number {

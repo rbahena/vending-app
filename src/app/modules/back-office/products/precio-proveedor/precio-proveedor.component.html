@@ -42,92 +42,82 @@
     </table>
     
 </section>
-<!-- 
+
 <ng-container *ngIf="activarFormularioPrecioProveedor">
-    <form class="row g-3" [formGroup]="productoFormulario" (ngSubmit)="crearActualizarProducto()">
+    <form class="row g-3" [formGroup]="precioProveedorFormulario" (ngSubmit)="crearActualizarPrecioProducto()">
+      <div class="col-md-6">
+        <label for="fk_producto" class="form-label">Producto</label>
+        <select formControlName="fk_producto" class="form-select">
+          <option [ngValue]="null" disabled selected>Elige un producto</option>
+          <option *ngFor="let producto of productos" [ngValue]="producto.id_producto">
+            {{ producto.nombre_producto }}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-md-6">
+        <label for="fk_proveedor" class="form-label">Proveedor</label>
+        <select formControlName="fk_proveedor" class="form-select">
+          <option [ngValue]="null" disabled selected>Elige el proveedor</option>
+          <option *ngFor="let proveedor of proveedores" [ngValue]="proveedor.id_proveedor">
+            {{ proveedor.nombre_proveedor }}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-md-6">
+        <label for="fk_unidad_compra" class="form-label">Unidad de compra</label>
+        <select formControlName="fk_unidad_compra" class="form-select">
+          <option [ngValue]="null" disabled selected>Elige la unidad de compra</option>
+          <option *ngFor="let unidades of unidadesCompra" [ngValue]="unidades.id_unidad_compra">
+            {{ unidades.nombre_unidad_compra }}
+          </option>
+        </select>
+      </div>
+      
         <div class="col-md-6">
-          <label for="nombre_producto" class="form-label">Nombre Producto</label>
-          <input type="text" name="nombre_producto" formControlName="nombre_producto" autocomplete="off"
-            class="form-control" id="nombre_producto" placeholder="Ej. Coca cola">
+          <label for="piezas_unidad_compra" class="form-label">piezas unidad compra</label>
+          <input type="text" name="piezas_unidad_compra" formControlName="piezas_unidad_compra" autocomplete="off"
+            class="form-control" id="piezas_unidad_compra" placeholder="Ej. 24">
         </div>
       
         <div class="col-md-6">
-          <label for="codigo_producto" class="form-label">Código de precio</label>
-          <input type="text" name="codigo_producto" formControlName="codigo_producto" autocomplete="off"
-            class="form-control" id="codigo_producto" placeholder="Ej. coca0001">
+          <label for="costo_unidad_compra" class="form-label">costo unidad compra</label>
+          <input type="text" name="costo_unidad_compra" formControlName="costo_unidad_compra" autocomplete="off" class="form-control"
+            id="costo_unidad_compra" placeholder="Ej. 380">
         </div>
       
         <div class="col-md-6">
-          <label for="url_imagen" class="form-label">Url imagen</label>
-          <input type="text" name="url_imagen" formControlName="url_imagen" autocomplete="off" class="form-control"
-            id="url_imagen" placeholder="Ej. imagenes/coca.png">
+          <label for="costo_pieza" class="form-label">costo pieza</label>
+          <input type="text" name="costo_pieza" formControlName="costo_pieza" autocomplete="off"
+            class="form-control" id="costo_pieza" placeholder="Ej. 15.6">
         </div>
       
         <div class="col-md-6">
-          <label for="contenido_neto" class="form-label">Contenido neto</label>
-          <input type="text" name="contenido_neto" formControlName="contenido_neto" autocomplete="off"
-            class="form-control" id="contenido_neto" placeholder="Ej. 600">
-        </div>
-      
-        <div class="col-md-6">
-          <label for="fk_categoria" class="form-label">Categoría</label>
-          <select formControlName="fk_categoria" class="form-select">
-            <option [ngValue]="null" disabled selected>Elige una categoría</option>
-            <option *ngFor="let categoria of categorias" [ngValue]="categoria.id_categoria">
-              {{ categoria.nombre_categoria }}
-            </option>
-          </select>
-        </div>
-      
-        <div class="col-md-6">
-          <label for="fk_envase" class="form-label">Envase</label>
-          <select formControlName="fk_envase" class="form-select">
-            <option [ngValue]="null" disabled selected>Elige un envase</option>
-            <option *ngFor="let envase of envases" [ngValue]="envase.id_envase">
-              {{ envase.nombre_envase }}
-            </option>
-          </select>
-        </div>
-      
-        <div class="col-md-6">
-          <label for="fk_unidad_medida" class="form-label">Unidad de medida</label>
-          <select formControlName="fk_unidad_medida" class="form-select">
-            <option [ngValue]="null" disabled selected>Elige una opción</option>
-            <option *ngFor="let unidad of unidadesMedida" [ngValue]="unidad.id_unidad">
-              {{ unidad.nombre_unidad }}
-            </option>
-          </select>
-        </div>
-      
-        <div class="col-md-6">
-          <label for="fk_presentacion" class="form-label">Presentación</label>
-          <select formControlName="fk_presentacion" class="form-select">
-            <option [ngValue]="null" disabled selected>Elige una opción</option>
-            <option *ngFor="let presentacion of presentaciones" [ngValue]="presentacion.id_presentacion">
-              {{ presentacion.nombre_presentacion }}
-            </option>
-          </select>
+          <label for="fecha_ultima_actualizacion" class="form-label">Fecha actualización</label>
+          <input type="date" name="fecha_ultima_actualizacion" formControlName="fecha_ultima_actualizacion" autocomplete="off"
+            class="form-control" id="fecha_ultima_actualizacion" >
         </div>
       
         
       
         <div class="col-12 text-center">
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="ocultarFormularioProducto()">Cancelar</button>
+            <button type="button" class="btn btn-secondary" (click)="ocultarFormularioPrecioProducto()">Cancelar</button>
             &nbsp;
             &nbsp;
-            <button type="submit" class="btn btn-primary">{{botonAcciones}}</button>
+            <button type="submit" class="btn btn-primary">{{valorBoton}}</button>
           </div>
         </div>
       </form>
 
       
       
-    <p *ngIf="productoFormulario.value.nombre_producto">Se guardara el siguiente precio: <span class="etiqueta">
+    <!-- <p *ngIf="productoFormulario.value.nombre_producto">Se guardara el siguiente precio: <span class="etiqueta">
         {{productoFormulario.value.nombre_producto | lowercase }}
         {{obtenerNombreEnvase(productoFormulario.value.fk_envase!) | lowercase}}     
         {{obtenerNombrePresentacion(productoFormulario.value.fk_presentacion!) | lowercase}}
         <span *ngIf="productoFormulario.value.fk_unidad_medida"> de
          {{productoFormulario.value.contenido_neto}}{{obtenerUnidadMedida(productoFormulario.value.fk_unidad_medida!) | lowercase}}</span>
-        </span></p>
-</ng-container> -->
+        </span></p> -->
+</ng-container> 
