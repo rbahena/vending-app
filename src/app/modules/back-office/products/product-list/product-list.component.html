@@ -26,11 +26,11 @@
             <tr *ngFor="let producto of productos; index as i; first as isFirst">
                 <td>{{i + 1}}</td>
                 <td>{{ producto.nombre_producto | titlecase}}</td>
-                <td>{{ obtenerNombreEnvase(producto.fk_envase!) | titlecase }}</td>
-                <td>{{ obtenerNombrePresentacion(producto.fk_presentacion!)  | titlecase}}</td>
+                <td>{{ producto.envases!.nombre_envase | titlecase }}</td>
+                <td>{{ producto.presentaciones!.nombre_presentacion}}</td>
                 <td>{{ producto.contenido_neto }}</td>
-                <td>{{ obtenerUnidadMedidaCompleto(producto.fk_unidad_medida!) | titlecase }}</td>
-                <td>{{ obtenerNombreCategoria(producto.fk_categoria!) | titlecase }}</td>
+                <td>{{ producto.unidadesMedida!.nombre_unidad | titlecase }}</td>
+                <td>{{ producto.categorias!.nombre_categoria | titlecase }}</td>
                 <td>{{ producto.codigo_producto}}</td>
                 <td>{{ producto.estatus | checarestatus}}</td>
                 <td>{{ producto.fecha_alta | date:'dd/MM/yyyy' }}</td>
@@ -136,7 +136,7 @@
         </div>
       
         
-      <app-precio-proveedor></app-precio-proveedor>
+      <!-- <app-precio-proveedor></app-precio-proveedor> -->
       
         <div class="col-12 text-center">
           <div class="modal-footer">

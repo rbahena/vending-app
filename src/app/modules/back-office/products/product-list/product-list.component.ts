@@ -43,6 +43,7 @@ export class ProductListComponent {
     private alertService: AlertService) { }
   ngOnInit(): void {
     this.obtenerProductos();
+
     this.obtenerCategorias();
     this.obtenerEnvases();
     this.obtenerPresentaciones();
@@ -67,6 +68,7 @@ export class ProductListComponent {
     this.productoService.obtenerProductos(this.id_suscriptor).subscribe({
       next: response => {
         this.productos = response;
+        console.log("Lista de productos: ", response);
       },
       error: (error: HttpErrorResponse) => {
         this.alertService.showAlert(error.error.message, 'error');
@@ -88,7 +90,6 @@ export class ProductListComponent {
         fk_unidad_medida: this.productoFormulario.value.fk_unidad_medida!,
         fk_presentacion: this.productoFormulario.value.fk_presentacion!,
       }
-      console.log("Formulario para agregar producto: ", this.agregarProductoDto);
       this.productoService.crearProducto(this.agregarProductoDto).subscribe({
         next: response => {
           this.obtenerProductos();
